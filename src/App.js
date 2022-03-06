@@ -9,6 +9,9 @@ import SignUp from './components/auth/SignUp'
 import SignIn from './components/auth/SignIn'
 import SignOut from './components/auth/SignOut'
 import ChangePassword from './components/auth/ChangePassword'
+import CreateCourse from './components/course/CreateCourse'
+import ViewCourses from './components/course/ViewCourses'
+import ViewCourseId from './components/course/ViewCourseId'
 
 const App = () => {
   const [user, setUser] = useState(null)
@@ -24,7 +27,7 @@ const App = () => {
   return (
     <>
       <Header user={user} />
-      {msgAlerts.map(msgAlert => (
+      {msgAlerts.map((msgAlert) => (
         <AutoDismissAlert
           key={msgAlert.id}
           heading={msgAlert.heading}
@@ -36,22 +39,35 @@ const App = () => {
       <main className='container'>
         <Routes>
           <Route
-            path='/sign-up'
-            element={<SignUp msgAlert={msgAlert} setUser={setUser} /> }
+            path='/sign-up/'
+            element={<SignUp msgAlert={msgAlert} setUser={setUser} />}
           />
           <Route
-            path='/sign-in'
-            element={<SignIn msgAlert={msgAlert} setUser={setUser} /> }
+            path='/sign-in/'
+            element={<SignIn msgAlert={msgAlert} setUser={setUser} />}
           />
           <Route
-            path='/sign-out'
-            element={<SignOut msgAlert={msgAlert} clearUser={clearUser} user={user} /> }
+            path='/sign-out/'
+            element={
+              <SignOut msgAlert={msgAlert} clearUser={clearUser} user={user} />
+            }
           />
           <Route
-            path='/change-password'
-            element={<ChangePassword msgAlert={msgAlert} user={user} /> }
+            path='/change-password/'
+            element={<ChangePassword msgAlert={msgAlert} user={user} />}
           />
-
+          <Route
+            path='/courses/create/'
+            element={<CreateCourse msgAlert={msgAlert} user={user} />}
+          />
+          <Route
+            path='/courses/'
+            element={<ViewCourses user={user} />}
+          />
+          <Route
+            path='/courses/:id'
+            element={<ViewCourseId msgAlert={msgAlert} user={user} />}
+          />
         </Routes>
       </main>
     </>
