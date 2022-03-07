@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { Navigate, Link } from 'react-router-dom'
 
+import Spinner from 'react-bootstrap/Spinner'
+
 import { getCourses } from '../../api/courses'
 
 const Courses = ({ user }) => {
@@ -24,7 +26,7 @@ const Courses = ({ user }) => {
   const renderedCourses = courses.map(course => {
     return (
       <li key={course.id}>
-        <Link to={`/courses/${course.id}`}>
+        <Link to={`/courses/${course.id}/`}>
           <h3>{course.name}</h3>
           <h5>{course.description}</h5>
         </Link>
@@ -37,7 +39,13 @@ const Courses = ({ user }) => {
   return (
     <>
       <h3>Courses:</h3>
-      {!loading ? listCourses : <h3>Loading...</h3>}
+      {!loading
+        ? (
+          listCourses
+        )
+        : (
+          <Spinner animation='border' variant='primary' />
+        )}
     </>
   )
 }

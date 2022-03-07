@@ -12,6 +12,8 @@ import ChangePassword from './components/auth/ChangePassword'
 import CreateCourse from './components/course/CreateCourse'
 import ViewCourses from './components/course/ViewCourses'
 import ViewCourseId from './components/course/ViewCourseId'
+import Profile from './components/user/Profile'
+import CreateModule from './components/module/CreateModule'
 
 const App = () => {
   const [user, setUser] = useState(null)
@@ -49,12 +51,15 @@ const App = () => {
           <Route
             path='/sign-out/'
             element={
-              <SignOut msgAlert={msgAlert} clearUser={clearUser} user={user} />
-            }
+              <SignOut msgAlert={msgAlert} clearUser={clearUser} user={user} />}
           />
           <Route
             path='/change-password/'
             element={<ChangePassword msgAlert={msgAlert} user={user} />}
+          />
+          <Route
+            path='/profile/'
+            element={<Profile msgAlert={msgAlert} user={user} />}
           />
           <Route
             path='/courses/create/'
@@ -65,8 +70,12 @@ const App = () => {
             element={<ViewCourses user={user} />}
           />
           <Route
-            path='/courses/:id'
+            path='/courses/:id/'
             element={<ViewCourseId msgAlert={msgAlert} user={user} />}
+          />
+          <Route
+            path='/courses/:id/modules/create/'
+            element={<CreateModule msgAlert={msgAlert} user={user} />}
           />
         </Routes>
       </main>

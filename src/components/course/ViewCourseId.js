@@ -4,17 +4,23 @@ import { Navigate, useParams } from 'react-router-dom'
 import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
 import Form from 'react-bootstrap/Form'
+import Spinner from 'react-bootstrap/Spinner'
 
 import { getCourseById, editCourse, deleteCourse } from '../../api/courses'
+import { getModules } from '../../api/modules'
 
-const Course = ({ user }) => {
+const Course = ({ msgAlert, user }) => {
   const [course, setCourse] = useState([])
   const [show, setShow] = useState(false)
   const [courseName, setCourseName] = useState('')
   const [courseDescription, setCourseDescription] = useState('')
-  const [navigate, setShouldNavigate] = useState(false)
+  const [navigateBack, setShouldNavigateBack] = useState(false)
+  const [navigateAddModule, setShouldNavigateAddModule] = useState(false)
   const { id } = useParams()
   const courseId = { id }
+
+  const [modules, setModules] = useState([])
+  const [loading, setLoading] = useState(true)
 
   if (!user) {
     return <Navigate to='/' />
@@ -31,9 +37,20 @@ const Course = ({ user }) => {
     }
   }, [show])
 
+  useEffect(async () => {
+    try {
+      const res = await getModules(user, courseId.id)
+      setModules(res.data.modules)
+      setLoading(false)
+    } catch (error) {
+      console.error(error)
+    }
+  }, [show])
+
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
-  const handleBackClick = () => setShouldNavigate(true)
+  const handleBackClick = () => setShouldNavigateBack(true)
+  const handleAddModule = () => setShouldNavigateAddModule(true)
 
   const onEditCourse = async (event) => {
     event.preventDefault()
@@ -74,9 +91,27 @@ const Course = ({ user }) => {
     }
   }
 
-  if (navigate) {
+  if (navigateBack) {
     return <Navigate to='/courses/' />
   }
+
+  if (navigateAddModule) {
+    return <Navigate to={'/courses/:id/modules/create/'} state={{ value: courseId }} />
+  }
+
+  const renderedModules = modules.map((module) => {
+    return (
+      <li key={module.id}>
+        {/* <Link to={`/courses/:id/modules/${module.id}/`}> */}
+        <h3>{module.id}: {module.name}</h3>
+        <h5>{module.content}</h5>
+        <hr />
+        {/* </Link> */}
+      </li>
+    )
+  })
+
+  const listModules = <ul>{renderedModules}</ul>
 
   return (
     <>
@@ -84,10 +119,29 @@ const Course = ({ user }) => {
         <br />
         <Button onClick={handleBackClick}>Back</Button>
         <br />
-        <p>{course.name}</p>
-        <p>{course.description}</p>
-        <Button onClick={handleShow}>Edit</Button>
-        <Button variant='danger' onClick={onDelete}>Delete</Button>
+        <div className='container'>
+          <div className='row'>
+            <div className='col-3'>
+              <h2>{course.name}</h2>
+              <h5>{course.description}</h5>
+              <Button onClick={handleShow}>Edit</Button>
+              <Button variant='danger' onClick={onDelete}>
+Delete
+              </Button>
+            </div>
+            <div className='col-6'>
+              <h5>Modules:</h5>
+              {!loading
+                ? (
+                  listModules
+                )
+                : (
+                  <Spinner animation='border' variant='primary' />
+                )}
+              <Button onClick={handleAddModule}>Add Module</Button>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div>
