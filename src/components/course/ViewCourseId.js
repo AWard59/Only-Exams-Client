@@ -109,19 +109,32 @@ const Course = ({ msgAlert, user }) => {
   const handleOnAddModule = () => setShouldNavigateAddModule(true)
 
   if (navigateAddModule) {
-    return <Navigate to={'/courses/:id/modules/create/'} state={{ value: courseId }} />
+    return (
+      <Navigate
+        to={`/courses/${courseId}/modules/create/`}
+        state={{ value: courseId.id }}
+      />
+    )
   }
 
   const renderedModules = modules.map((m) => {
     return (
       <li key={m.id}>
-        <Link to={`/courses/:id/modules/${m.id}/`}>
-          <h3>{m.name}</h3>
+        <Link to={`/courses/${courseId}/modules/${m.id}/`} state={{ value: courseId.id }}>
+          <h3 className='container shadow-lg'>{m.name}</h3>
         </Link>
+        <hr />
       </li>
     )
   })
-  const listModules = <ol>{renderedModules}</ol>
+  const listModules = <ol className='container'>{renderedModules}</ol>
+
+  const tmap = tutors.map((t) => {
+    return (
+      <option key={t.id} value={t.email}>{t.email}</option>
+    )
+  })
+  console.log('map', tmap)
 
   return (
     <>
@@ -137,7 +150,7 @@ const Course = ({ msgAlert, user }) => {
                 <h2>{course.name}</h2>
                 <h5>{course.description}</h5>
                 <Button onClick={() => setShowCourseEdit(true)}>Edit</Button>
-                <Button variant='danger' onClick={() => onDelete}>
+                <Button variant='danger' onClick={onDelete}>
 Delete
                 </Button>
                 <br />
@@ -155,13 +168,11 @@ Delete
             <div className='col-6 container'>
               <h3>Modules:</h3>
               {!loading
-                ? (
-                  listModules
-                )
+                ? (listModules)
                 : (
                   <Spinner animation='border' variant='primary' />
                 )}
-              <Button onClick={() => handleOnAddModule}>Add Module</Button>
+              <Button onClick={handleOnAddModule}>Add Module</Button>
             </div>
           </div>
         </div>
@@ -208,7 +219,7 @@ Delete
               onClick={() => setShowCourseEdit(false)}>
 Close
             </Button>
-            <Button variant='primary' onClick={() => onEditCourse}>
+            <Button variant='primary' onClick={onEditCourse}>
 Save Changes
             </Button>
           </Modal.Footer>
@@ -228,7 +239,7 @@ Save Changes
               <Select
                 isMulti
                 className='basic-multi-select'
-                options={Object.values(tutors)} />
+                options={tmap} />
             </Form>
           </Modal.Body>
           <Modal.Footer>
