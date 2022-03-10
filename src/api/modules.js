@@ -26,35 +26,35 @@ export const getModules = (user, course) => {
     })
 }
 
-// export const getCourseById = (user, id) => {
-//   return axios.get(apiUrl + `/courses/${id}/`, {
-//     headers: {
-//       Authorization: `Token ${user.token}`
-//     }
-//   })
-// }
+export const getModuleById = (user, id, course) => {
+  return axios.get(apiUrl + `/courses/:id/modules/${id}/`, {
+    headers: {
+      Authorization: `Token ${user.token}`
+    }
+  })
+}
 
-// export const editCourse = (user, id, name, description) => {
-//   return axios.patch(
-//     apiUrl + `/courses/${id}/`,
-//     {
-//       course: {
-//         name,
-//         description
-//       }
-//     },
-//     {
-//       headers: {
-//         Authorization: `Token ${user.token}`
-//       }
-//     }
-//   )
-// }
+export const editModule = (user, id, name, content, course) => {
+  return axios.patch(
+    apiUrl + `/courses/${course}/modules/${id}/`,
+    {
+      module: {
+        name,
+        content
+      }
+    },
+    {
+      headers: {
+        Authorization: `Token ${user.token}`
+      }
+    }
+  )
+}
 
-// export const deleteCourse = (user, id) => {
-//   return axios.delete(apiUrl + `/courses/${id}/`, {
-//     headers: {
-//       Authorization: `Token ${user.token}`
-//     }
-//   })
-// }
+export const deleteModule = (user, id, course) => {
+  return axios.delete(apiUrl + `/courses/${course}/modules/${id}/`, {
+    headers: {
+      Authorization: `Token ${user.token}`
+    }
+  })
+}

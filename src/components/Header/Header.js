@@ -27,7 +27,7 @@ const alwaysOptions = (
   </>
 )
 
-const Header = ({ user }) => (
+const Header = ({ user, userType }) => (
   <Navbar bg='primary' variant='dark' expand='md'>
     <Container>
       <Navbar.Brand>
@@ -39,7 +39,7 @@ E-Learning
       <Navbar.Collapse id='basic-navbar-nav'>
         <Nav className='ms-auto'>
           {user && (
-            <span className='navbar-text me-2'>Welcome, {user.email}</span>
+            <span className='navbar-text me-2'>Welcome, {user.email}({userType})</span>
           )}
           {alwaysOptions}
           {user ? authenticatedOptions : unauthenticatedOptions}

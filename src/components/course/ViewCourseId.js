@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react'
-import { Navigate, useParams } from 'react-router-dom'
+import { Navigate, useParams, Link } from 'react-router-dom'
 
 import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
 import Form from 'react-bootstrap/Form'
 import Spinner from 'react-bootstrap/Spinner'
+import FloatingLabel from 'react-bootstrap/FloatingLabel'
+import Select from 'react-select'
 
 import { getCourseById, editCourse, deleteCourse } from '../../api/courses'
 import { getModules } from '../../api/modules'
+import { getTutors } from '../../api/user'
 
 const Course = ({ msgAlert, user }) => {
   const [course, setCourse] = useState([])
@@ -15,9 +18,8 @@ const Course = ({ msgAlert, user }) => {
   const [courseDescription, setCourseDescription] = useState('')
   const [showCourseEdit, setShowCourseEdit] = useState(false)
   const [modules, setModules] = useState([])
-  const [moduleName, setModuleName] = useState('')
-  const [moduleContent, setModuleContent] = useState('')
-  const [showModuleEdit, setShowModuleEdit] = useState(false)
+  const [tutors, setTutors] = useState([])
+  const [showAssignTutors, setShowAssignTutors] = useState(false)
   const [loading, setLoading] = useState(false)
   const [navigateBack, setShouldNavigateBack] = useState(false)
   const [navigateAddModule, setShouldNavigateAddModule] = useState(false)
@@ -87,6 +89,19 @@ const Course = ({ msgAlert, user }) => {
     }
   }
 
+  const handleShowAssignTutors = async (event) => {
+    event.preventDefault()
+    try {
+      const res = await getTutors(user)
+      console.log('tutors res', res.data.tutors)
+      setTutors(res.data.tutors)
+      console.log('tutors state', tutors)
+      setShowAssignTutors(true)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   if (navigateBack) {
     return <Navigate to='/courses/' />
   }
@@ -94,29 +109,32 @@ const Course = ({ msgAlert, user }) => {
   const handleOnAddModule = () => setShouldNavigateAddModule(true)
 
   if (navigateAddModule) {
-    return <Navigate to={'/courses/:id/modules/create/'} state={{ value: courseId }} />
-  }
-
-  const handleShowModuleEdit = (event) => {
-
-  }
-
-  const renderedModules = modules.map((module, i) => {
     return (
-      <li key={module.id}>
-        <h3>
-          {i + 1}: {module.name}
-        </h3>
-        <h5>{module.content}</h5>
-        <Button onClick={handleShowModuleEdit}>Edit</Button>
-        <Button variant='danger'>
-Delete
-        </Button>
+      <Navigate
+        to={`/courses/${courseId}/modules/create/`}
+        state={{ value: courseId.id }}
+      />
+    )
+  }
+
+  const renderedModules = modules.map((m) => {
+    return (
+      <li key={m.id}>
+        <Link to={`/courses/${courseId}/modules/${m.id}/`} state={{ value: courseId.id }}>
+          <h3 className='container shadow-lg'>{m.name}</h3>
+        </Link>
         <hr />
       </li>
     )
   })
-  const listModules = <ul>{renderedModules}</ul>
+  const listModules = <ol className='container'>{renderedModules}</ol>
+
+  const tmap = tutors.map((t) => {
+    return (
+      <option key={t.id} value={t.email}>{t.email}</option>
+    )
+  })
+  console.log('map', tmap)
 
   return (
     <>
@@ -124,26 +142,37 @@ Delete
         <br />
         <Button onClick={() => setShouldNavigateBack(true)}>Back</Button>
         <br />
+        <br />
         <div className='container'>
           <div className='row'>
             <div className='col-3'>
-              <h2>{course.name}</h2>
-              <h5>{course.description}</h5>
-              <Button onClick={() => setShowCourseEdit(true)}>Edit</Button>
-              <Button variant='danger' onClick={() => onDelete}>
+              <div className='container shadow'>
+                <h2>{course.name}</h2>
+                <h5>{course.description}</h5>
+                <Button onClick={() => setShowCourseEdit(true)}>Edit</Button>
+                <Button variant='danger' onClick={onDelete}>
 Delete
-              </Button>
+                </Button>
+                <br />
+                <br />
+              </div>
+              <br />
+              <div className='container shadow'>
+                <h5>Tutors:</h5>
+                <Button onClick={handleShowAssignTutors}>Assign Tutors</Button>
+                <br />
+                <br />
+              </div>
             </div>
-            <div className='col-6'>
-              <h5>Modules:</h5>
+
+            <div className='col-6 container'>
+              <h3>Modules:</h3>
               {!loading
-                ? (
-                  listModules
-                )
+                ? (listModules)
                 : (
                   <Spinner animation='border' variant='primary' />
                 )}
-              <Button onClick={() => handleOnAddModule}>Add Module</Button>
+              <Button onClick={handleOnAddModule}>Add Module</Button>
             </div>
           </div>
         </div>
@@ -157,28 +186,30 @@ Delete
           <Modal.Body>
             <Form>
               <Form.Group controlId='courseName'>
-                <Form.Label>Course Name</Form.Label>
-                <Form.Control
-                  required
-                  name='courseName'
-                  value={courseName}
-                  type='text'
-                  placeholder='Course Name'
-                  onChange={(event) => setCourseName(event.target.value)}
-                />
+                <FloatingLabel label="Course Name">
+                  <Form.Control
+                    required
+                    name='courseName'
+                    value={courseName}
+                    type='text'
+                    placeholder='Course Name'
+                    onChange={(event) => setCourseName(event.target.value)}
+                  />
+                </FloatingLabel>
               </Form.Group>
               <Form.Group controlId='courseDescription'>
-                <Form.Label>Course Description</Form.Label>
-                <Form.Control
-                  required
-                  name='courseDescription'
-                  value={courseDescription}
-                  type='text'
-                  as='textarea'
-                  rows='6'
-                  placeholder='Course Description'
-                  onChange={(event) => setCourseDescription(event.target.value)}
-                />
+                <FloatingLabel label="Course Description">
+                  <Form.Control
+                    required
+                    name='courseDescription'
+                    value={courseDescription}
+                    type='text'
+                    as='textarea'
+                    rows='6'
+                    placeholder='Course Description'
+                    onChange={(event) => setCourseDescription(event.target.value)}
+                  />
+                </FloatingLabel>
               </Form.Group>
             </Form>
           </Modal.Body>
@@ -188,56 +219,31 @@ Delete
               onClick={() => setShowCourseEdit(false)}>
 Close
             </Button>
-            <Button variant='primary' onClick={() => onEditCourse}>
+            <Button variant='primary' onClick={onEditCourse}>
 Save Changes
             </Button>
           </Modal.Footer>
         </Modal>
       </div>
 
-      {/* Module Edit Modal */}
+      {/* Tutor Assign Modal */}
       <div>
-        <Modal show={showModuleEdit} onHide={() => setShowModuleEdit(false)}>
+        <Modal
+          show={showAssignTutors}
+          onHide={() => setShowAssignTutors(false)}>
           <Modal.Header closeButton>
-            <Modal.Title>Edit Module Information</Modal.Title>
+            <Modal.Title>Assign Tutors</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <Form>
-              <Form.Group controlId='moduleName'>
-                <Form.Label>Module Name</Form.Label>
-                <Form.Control
-                  required
-                  name='moduleName'
-                  value={moduleName}
-                  type='text'
-                  placeholder='Module Name'
-                  onChange={(event) => setModuleName(event.target.value)}
-                />
-              </Form.Group>
-              <Form.Group controlId='moduleContent'>
-                <Form.Label>Module Content</Form.Label>
-                <Form.Control
-                  required
-                  name='moduleContent'
-                  value={moduleContent}
-                  type='text'
-                  as='textarea'
-                  rows='6'
-                  placeholder='Module Content'
-                  onChange={(event) => setModuleContent(event.target.value)}
-                />
-              </Form.Group>
+              <Select
+                isMulti
+                className='basic-multi-select'
+                options={tmap} />
             </Form>
           </Modal.Body>
           <Modal.Footer>
-            <Button
-              variant='secondary'
-              onClick={() => setShowModuleEdit(false)}>
-Close
-            </Button>
-            <Button variant='primary' onClick={() => onEditCourse}>
-Save Changes
-            </Button>
+            <Button variant='primary'>Save Changes</Button>
           </Modal.Footer>
         </Modal>
       </div>

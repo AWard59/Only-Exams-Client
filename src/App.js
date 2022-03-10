@@ -1,5 +1,5 @@
 /* eslint-disable no-tabs */
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import { v4 as uuid } from 'uuid'
 
@@ -14,10 +14,15 @@ import ViewCourses from './components/course/ViewCourses'
 import ViewCourseId from './components/course/ViewCourseId'
 import Profile from './components/user/Profile'
 import CreateModule from './components/module/CreateModule'
+import ViewModuleId from './components/module/ViewModuleId'
 
 const App = () => {
   const [user, setUser] = useState(null)
   const [msgAlerts, setMsgAlerts] = useState([])
+  const [isStudent, setIsStudent] = useState(null)
+  const [isTutor, setIsTutor] = useState(null)
+  const [isAuthor, setIsAuthor] = useState(null)
+  const [userType, setUserType] = useState(null)
 
   const clearUser = () => setUser(null)
 
@@ -26,9 +31,27 @@ const App = () => {
     setMsgAlerts(msgAlerts => ([...msgAlerts, { heading, message, variant, id }]))
   }
 
+  useEffect(() => {
+    if (user) {
+      if (user.isStudent) {
+        setIsStudent(true)
+        setUserType('Student')
+        console.log(isStudent)
+      } else if (user.isTutor) {
+        setIsTutor(true)
+        setUserType('Tutor')
+        console.log(isTutor)
+      } else if (user.isAuthor) {
+        setIsAuthor(true)
+        setUserType('Author')
+        console.log(isAuthor)
+      }
+    }
+  }, [user])
+
   return (
     <>
-      <Header user={user} />
+      <Header user={user} userType={userType}/>
       {msgAlerts.map((msgAlert) => (
         <AutoDismissAlert
           key={msgAlert.id}
@@ -76,6 +99,10 @@ const App = () => {
           <Route
             path='/courses/:id/modules/create/'
             element={<CreateModule msgAlert={msgAlert} user={user} />}
+          />
+          <Route
+            path='/courses/:id/modules/:id/'
+            element={<ViewModuleId msgAlert={msgAlert} user={user} />}
           />
         </Routes>
       </main>
