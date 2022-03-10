@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Navigate } from 'react-router-dom'
 
-import { getModules } from '../../api/modules'
+import { getModules } from '../../../api/modules'
 
 const Modules = ({ user }) => {
   const [modules, setModules] = useState([])

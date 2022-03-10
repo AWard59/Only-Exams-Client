@@ -27,7 +27,7 @@ export const getModules = (user, course) => {
 }
 
 export const getModuleById = (user, id, course) => {
-  return axios.get(apiUrl + `/courses/:id/modules/${id}/`, {
+  return axios.get(apiUrl + `/courses/modules/${id}/`, {
     headers: {
       Authorization: `Token ${user.token}`
     }
@@ -36,9 +36,10 @@ export const getModuleById = (user, id, course) => {
 
 export const editModule = (user, id, name, content, course) => {
   return axios.patch(
-    apiUrl + `/courses/${course}/modules/${id}/`,
+    apiUrl + `/courses/modules/${id}/`,
     {
       module: {
+        course,
         name,
         content
       }

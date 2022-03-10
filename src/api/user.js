@@ -39,3 +39,33 @@ export const getTutors = (user) => {
     }
   )
 }
+
+export const assignTutor = (user, tutor, course) => {
+  console.log('user', user)
+  console.log('tutor', tutor)
+  console.log('course', course)
+  return axios.post(
+    apiUrl + '/tutors/assign/',
+    {
+      assign: {
+        tutor,
+        course
+      }
+    }, {
+      headers: {
+        Authorization: `Token ${user.token}`
+      }
+    }
+  )
+}
+
+export const getAssignedTutors = (user, course) => {
+  return axios.get(
+    apiUrl + `/courses/${course}/tutors/`,
+    {
+      headers: {
+        Authorization: `Token ${user.token}`
+      }
+    }
+  )
+}

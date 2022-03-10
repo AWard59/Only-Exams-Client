@@ -6,7 +6,7 @@ import Modal from 'react-bootstrap/Modal'
 import Form from 'react-bootstrap/Form'
 import FloatingLabel from 'react-bootstrap/FloatingLabel'
 
-import { getModuleById, editModule, deleteModule } from '../../api/modules'
+import { getModuleById, editModule, deleteModule } from '../../../api/modules'
 
 const Module = ({ msgAlert, user }) => {
   const [module, setModule] = useState([])

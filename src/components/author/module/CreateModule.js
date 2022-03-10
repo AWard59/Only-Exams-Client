@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Navigate, useLocation } from 'react-router-dom'
 
-import { createModule } from '../../api/modules'
+import { createModule } from '../../../api/modules'
 
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'

@@ -3,9 +3,9 @@ import { Navigate, Link } from 'react-router-dom'
 
 import Spinner from 'react-bootstrap/Spinner'
 
-import { getCourses } from '../../api/courses'
+import { getCourses } from '../../../api/courses'
 
-const Courses = ({ user }) => {
+const Courses = ({ msgAlert, user }) => {
   const [courses, setCourses] = useState([])
   const [loading, setLoading] = useState(true)
 
@@ -14,8 +14,12 @@ const Courses = ({ user }) => {
       const res = await getCourses(user)
       setCourses(res.data.courses)
       setLoading(false)
-    } catch (error) {
-      console.error(error)
+    } catch {
+      msgAlert({
+        heading: 'No Courses',
+        message: 'There are no courses. Please Add Course.',
+        variant: 'danger'
+      })
     }
   }, [])
 

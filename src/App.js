@@ -9,12 +9,12 @@ import SignUp from './components/auth/SignUp'
 import SignIn from './components/auth/SignIn'
 import SignOut from './components/auth/SignOut'
 import ChangePassword from './components/auth/ChangePassword'
-import CreateCourse from './components/course/CreateCourse'
-import ViewCourses from './components/course/ViewCourses'
-import ViewCourseId from './components/course/ViewCourseId'
+import CreateCourse from './components/author/course/CreateCourse'
+import ViewCourses from './components/author/course/ViewCourses'
+import ViewCourseId from './components/author/course/ViewCourseId'
 import Profile from './components/user/Profile'
-import CreateModule from './components/module/CreateModule'
-import ViewModuleId from './components/module/ViewModuleId'
+import CreateModule from './components/author/module/CreateModule'
+import ViewModuleId from './components/author/module/ViewModuleId'
 
 const App = () => {
   const [user, setUser] = useState(null)
@@ -101,7 +101,7 @@ const App = () => {
             element={<CreateModule msgAlert={msgAlert} user={user} />}
           />
           <Route
-            path='/courses/:id/modules/:id/'
+            path='/courses/modules/:id/'
             element={<ViewModuleId msgAlert={msgAlert} user={user} />}
           />
         </Routes>

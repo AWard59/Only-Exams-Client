@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Navigate } from 'react-router-dom'
 
-import { createCourse } from '../../api/courses'
+import { createCourse } from '../../../api/courses'
 
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
