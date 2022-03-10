@@ -28,3 +28,14 @@ export const profileView = (user) => {
     }
   )
 }
+
+export const getTutors = (user) => {
+  return axios.get(
+    apiUrl + '/tutors/',
+    {
+      headers: {
+        Authorization: `Token ${user.token}`
+      }
+    }
+  )
+}
