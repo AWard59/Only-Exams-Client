@@ -11,13 +11,14 @@ const SignUp = ({ msgAlert, setUser }) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [passwordConfirmation, setPasswordConfirmation] = useState('')
+  const [userType, setUserType] = useState('')
   const [shouldNavigate, setShouldNavigate] = useState(false)
 
   const onSignUp = async (event) => {
     event.preventDefault()
 
     try {
-      await signUp(email, password, passwordConfirmation)
+      await signUp(email, password, passwordConfirmation, userType)
       const res = await signIn(email, password)
       setUser(res.data.user)
       msgAlert({
@@ -55,7 +56,7 @@ const SignUp = ({ msgAlert, setUser }) => {
               name='email'
               value={email}
               placeholder='Enter email'
-              onChange={event => setEmail(event.target.value)}
+              onChange={(event) => setEmail(event.target.value)}
             />
           </Form.Group>
           <Form.Group controlId='password'>
@@ -66,7 +67,7 @@ const SignUp = ({ msgAlert, setUser }) => {
               value={password}
               type='password'
               placeholder='Password'
-              onChange={event => setPassword(event.target.value)}
+              onChange={(event) => setPassword(event.target.value)}
             />
           </Form.Group>
           <Form.Group controlId='passwordConfirmation'>
@@ -77,10 +78,48 @@ const SignUp = ({ msgAlert, setUser }) => {
               value={passwordConfirmation}
               type='password'
               placeholder='Confirm Password'
-              onChange={event => setPasswordConfirmation(event.target.value)}
+              onChange={(event) => setPasswordConfirmation(event.target.value)}
             />
           </Form.Group>
-          <Button className='mt-2' variant='primary' type='submit'>Submit</Button>
+          <br />
+
+          <Form.Group controlId='userType'>
+            <Form.Label>User Type</Form.Label>
+            <div key={'inline-radio}'} className='mb-3'>
+              <Form.Check
+                inline
+                defaultChecked
+                label='Student'
+                name='userType'
+                value='is_student'
+                type='radio'
+                id={'inline-radio}-1'}
+                onChange={(event) => setUserType(event.target.value)}
+              />
+              <Form.Check
+                inline
+                label='Tutor'
+                name='userType'
+                value='is_tutor'
+                type='radio'
+                id={'inline-radio}-2'}
+                onChange={(event) => setUserType(event.target.value)}
+              />
+              <Form.Check
+                inline
+                label='Author'
+                name='userType'
+                value='is_author'
+                type='radio'
+                id={'inline-radio}-3'}
+                onChange={(event) => setUserType(event.target.value)}
+              />
+            </div>
+          </Form.Group>
+
+          <Button className='mt-2' variant='primary' type='submit'>
+Submit
+          </Button>
         </Form>
       </div>
     </div>

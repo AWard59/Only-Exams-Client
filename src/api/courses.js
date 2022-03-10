@@ -2,7 +2,6 @@ import apiUrl from '../apiConfig'
 import axios from 'axios'
 
 export const createCourse = (user, name, description) => {
-  console.log('user', user)
   return axios.post(apiUrl + '/courses/create/', {
     course: {
       name,
