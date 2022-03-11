@@ -96,15 +96,31 @@ const Course = ({ msgAlert, user }) => {
     }
   }
 
+  // course: {id: 1, name: 'A Test Course', description: 'Loads and loads of testing and testing and testes and testing.', owner: 2, assigned_tutors: Array(1)}
+  // id: 2
+  // tutor: {email: 'wsefgtv@1.com', id: 9}
+
+  // ViewCourseId.js:105
+  // (2) [{…}, {…}]
+  // 0: {email: '2345@124124.com', id: 14}
+  // 1: {email: 'wsefgtv@1.com', id: 9}
+
   const handleShowAssignTutors = async (event) => {
     event.preventDefault()
     try {
       const res = await getTutors(user)
-      setTutors(res.data.tutors)
+      const filteredTutors = res.data.tutors.filter(tutorFilterFunc)
+      setTutors(filteredTutors)
       setShowAssignTutors(true)
     } catch (error) {
       console.error(error)
     }
+  }
+
+  const tutorFilterFunc = list => {
+    console.log('list', list.email)
+    console.log('assignedTut', assignedTutors[0].tutor.email)
+    return list.email !== assignedTutors[0].tutor.email
   }
 
   if (navigateBack) {
@@ -155,8 +171,7 @@ const Course = ({ msgAlert, user }) => {
   const onAssignTutor = async (event) => {
     event.preventDefault()
     try {
-      const res = await assignTutor(user, newTutor.id, courseId.id)
-      console.log(res)
+      await assignTutor(user, newTutor.id, courseId.id)
       setShowAssignTutors(false)
     } catch (error) {
       console.error(error)
