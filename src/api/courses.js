@@ -51,3 +51,31 @@ export const deleteCourse = (user, id) => {
     }
   })
 }
+
+export const enrolCourse = (user, course) => {
+  return axios.post(
+    apiUrl + `/courses/${course}/enrol/`,
+    {
+      enrol: {
+        student: user.id,
+        course
+      }
+    },
+    {
+      headers: {
+        Authorization: `Token ${user.token}`
+      }
+    }
+  )
+}
+
+export const getEnrolledCourses = (user) => {
+  return axios.get(
+    apiUrl + '/courses/enrolled/',
+    {
+      headers: {
+        Authorization: `Token ${user.token}`
+      }
+    }
+  )
+}

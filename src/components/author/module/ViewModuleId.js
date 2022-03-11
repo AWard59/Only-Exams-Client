@@ -8,7 +8,7 @@ import FloatingLabel from 'react-bootstrap/FloatingLabel'
 
 import { getModuleById, editModule, deleteModule } from '../../../api/modules'
 
-const Module = ({ msgAlert, user }) => {
+const Module = ({ msgAlert, user, userType }) => {
   const [module, setModule] = useState([])
   const [moduleName, setModuleName] = useState('')
   const [moduleContent, setModuleContent] = useState('')

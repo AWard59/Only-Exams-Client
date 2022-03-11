@@ -12,17 +12,19 @@ import SignOut from './components/auth/SignOut'
 import ChangePassword from './components/auth/ChangePassword'
 import CreateCourse from './components/author/course/CreateCourse'
 import ViewCourses from './components/author/course/ViewCourses'
-import ViewCourseId from './components/author/course/ViewCourseId'
+import ViewCoursesEnrolled from './components/student/course/ViewCoursesEnrolled'
+import ViewCourseIdAuthor from './components/author/course/ViewCourseId'
 import Profile from './components/user/Profile'
 import CreateModule from './components/author/module/CreateModule'
 import ViewModuleId from './components/author/module/ViewModuleId'
+import ViewCourseIdStudent from './components/student/course/ViewCourseId'
 
 const App = () => {
   const [user, setUser] = useState(null)
   const [msgAlerts, setMsgAlerts] = useState([])
-  const [isStudent, setIsStudent] = useState(null)
-  const [isTutor, setIsTutor] = useState(null)
-  const [isAuthor, setIsAuthor] = useState(null)
+  // const [isStudent, setIsStudent] = useState(null)
+  // const [isTutor, setIsTutor] = useState(null)
+  // const [isAuthor, setIsAuthor] = useState(null)
   const [userType, setUserType] = useState(null)
 
   const clearUser = () => setUser(null)
@@ -35,24 +37,64 @@ const App = () => {
   useEffect(() => {
     if (user) {
       if (user.isStudent) {
-        setIsStudent(true)
+        // setIsStudent(true)
         setUserType('Student')
-        console.log(isStudent)
       } else if (user.isTutor) {
-        setIsTutor(true)
+        // setIsTutor(true)
         setUserType('Tutor')
-        console.log(isTutor)
       } else if (user.isAuthor) {
-        setIsAuthor(true)
+        // setIsAuthor(true)
         setUserType('Author')
-        console.log(isAuthor)
       }
     }
   }, [user])
 
+  // Student Routes
+  const studentRoutes = (
+    <>
+      <Route
+        path='/courses/:id/'
+        element={
+          <ViewCourseIdStudent
+            msgAlert={msgAlert}
+            user={user}
+            userType={userType}
+          />
+        }
+      />
+      <Route
+        path='/courses/enrolled/'
+        element={<ViewCoursesEnrolled user={user} userType={userType} />}
+      />
+    </>
+  )
+
+  // Tutor Routes
+  const tutorRoutes = (
+    <>
+
+    </>
+  )
+
+  // Author Routes
+  const authorRoutes = (
+    <>
+      <Route
+        path='/courses/:id/'
+        element={
+          <ViewCourseIdAuthor
+            msgAlert={msgAlert}
+            user={user}
+            userType={userType}
+          />
+        }
+      />
+    </>
+  )
+
   return (
     <>
-      <Header user={user} userType={userType}/>
+      <Header user={user} userType={userType} />
       {msgAlerts.map((msgAlert) => (
         <AutoDismissAlert
           key={msgAlert.id}
@@ -64,10 +106,7 @@ const App = () => {
       ))}
       <main className='container'>
         <Routes>
-          <Route
-            path='/'
-            element={<Home />}
-          />
+          {/* Auth Routes */}
           <Route
             path='/sign-up/'
             element={<SignUp msgAlert={msgAlert} setUser={setUser} />}
@@ -79,7 +118,8 @@ const App = () => {
           <Route
             path='/sign-out/'
             element={
-              <SignOut msgAlert={msgAlert} clearUser={clearUser} user={user} />}
+              <SignOut msgAlert={msgAlert} clearUser={clearUser} user={user} />
+            }
           />
           <Route
             path='/change-password/'
@@ -89,26 +129,39 @@ const App = () => {
             path='/profile/'
             element={<Profile msgAlert={msgAlert} user={user} />}
           />
+          {/* Generic Routes */}
+          <Route path='/' element={<Home />} />
+          <Route
+            path='/courses/'
+            element={<ViewCourses user={user} userType={userType} />}
+          />
+          <Route
+            path='/courses/modules/:id/'
+            element={
+              <ViewModuleId
+                msgAlert={msgAlert}
+                user={user}
+                userType={userType}
+              />
+            }
+          />
+          {userType === 'Student'
+            ? studentRoutes
+            : userType === 'Tutor'
+              ? tutorRoutes
+              : userType === 'Author'
+                ? authorRoutes
+                : ''}
+          {/* Author Routes */}
           <Route
             path='/courses/create/'
             element={<CreateCourse msgAlert={msgAlert} user={user} />}
           />
           <Route
-            path='/courses/'
-            element={<ViewCourses user={user} />}
-          />
-          <Route
-            path='/courses/:id/'
-            element={<ViewCourseId msgAlert={msgAlert} user={user} />}
-          />
-          <Route
             path='/courses/:id/modules/create/'
             element={<CreateModule msgAlert={msgAlert} user={user} />}
           />
-          <Route
-            path='/courses/modules/:id/'
-            element={<ViewModuleId msgAlert={msgAlert} user={user} />}
-          />
+          {/* Tutor Routes */}
         </Routes>
       </main>
     </>

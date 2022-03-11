@@ -11,7 +11,7 @@ import { getCourseById, editCourse, deleteCourse } from '../../../api/courses'
 import { getModules } from '../../../api/modules'
 import { getTutors, assignTutor, getAssignedTutors } from '../../../api/user'
 
-const Course = ({ msgAlert, user }) => {
+const Course = ({ msgAlert, user, userType }) => {
   const [course, setCourse] = useState([])
   const [courseName, setCourseName] = useState('')
   const [courseDescription, setCourseDescription] = useState('')
@@ -95,15 +95,6 @@ const Course = ({ msgAlert, user }) => {
       })
     }
   }
-
-  // course: {id: 1, name: 'A Test Course', description: 'Loads and loads of testing and testing and testes and testing.', owner: 2, assigned_tutors: Array(1)}
-  // id: 2
-  // tutor: {email: 'wsefgtv@1.com', id: 9}
-
-  // ViewCourseId.js:105
-  // (2) [{…}, {…}]
-  // 0: {email: '2345@124124.com', id: 14}
-  // 1: {email: 'wsefgtv@1.com', id: 9}
 
   const handleShowAssignTutors = async (event) => {
     event.preventDefault()
