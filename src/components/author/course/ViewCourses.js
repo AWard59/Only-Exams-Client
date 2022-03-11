@@ -30,10 +30,13 @@ const Courses = ({ msgAlert, user }) => {
   const renderedCourses = courses.map(course => {
     return (
       <li key={course.id}>
-        <Link to={`/courses/${course.id}/`}>
-          <h3>{course.name}</h3>
+        <div className='container'>
+          <Link to={`/courses/${course.id}/`}>
+            <h1>{course.name}</h1>
+          </Link>
           <h5>{course.description}</h5>
-        </Link>
+          <hr />
+        </div>
       </li>
     )
   })

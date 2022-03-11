@@ -4,10 +4,28 @@ import Navbar from 'react-bootstrap/Navbar'
 import Container from 'react-bootstrap/Container'
 import { Link, NavLink } from 'react-router-dom'
 
-const authenticatedOptions = (
+const authorOptions = (
   <>
     <NavLink to='/courses/' className='nav-link'>Courses</NavLink>
     <NavLink to='/courses/create/' className='nav-link'>Add Course</NavLink>
+    <NavLink to='/change-password/' className='nav-link'>Change Password</NavLink>
+    <NavLink to='/profile/' className='nav-link'>Profile</NavLink>
+    <NavLink to='/sign-out/' className='nav-link'>Sign Out</NavLink>
+  </>
+)
+
+const tutorOptions = (
+  <>
+    <NavLink to='/courses/' className='nav-link'>Courses</NavLink>
+    <NavLink to='/change-password/' className='nav-link'>Change Password</NavLink>
+    <NavLink to='/profile/' className='nav-link'>Profile</NavLink>
+    <NavLink to='/sign-out/' className='nav-link'>Sign Out</NavLink>
+  </>
+)
+
+const studentOptions = (
+  <>
+    <NavLink to='/courses/' className='nav-link'>Courses</NavLink>
     <NavLink to='/change-password/' className='nav-link'>Change Password</NavLink>
     <NavLink to='/profile/' className='nav-link'>Profile</NavLink>
     <NavLink to='/sign-out/' className='nav-link'>Sign Out</NavLink>
@@ -42,7 +60,7 @@ E-Learning
             <span className='navbar-text me-2'>Welcome, {user.email}({userType})</span>
           )}
           {alwaysOptions}
-          {user ? authenticatedOptions : unauthenticatedOptions}
+          {userType === 'Student' ? studentOptions : userType === 'Tutor' ? tutorOptions : userType === 'Author' ? authorOptions : unauthenticatedOptions}
         </Nav>
       </Navbar.Collapse>
     </Container>
