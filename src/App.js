@@ -5,6 +5,7 @@ import { v4 as uuid } from 'uuid'
 
 import AutoDismissAlert from './components/AutoDismissAlert/AutoDismissAlert'
 import Header from './components/Header/Header'
+import Home from './components/Header/Home'
 import SignUp from './components/auth/SignUp'
 import SignIn from './components/auth/SignIn'
 import SignOut from './components/auth/SignOut'
@@ -63,6 +64,10 @@ const App = () => {
       ))}
       <main className='container'>
         <Routes>
+          <Route
+            path='/'
+            element={<Home />}
+          />
           <Route
             path='/sign-up/'
             element={<SignUp msgAlert={msgAlert} setUser={setUser} />}
