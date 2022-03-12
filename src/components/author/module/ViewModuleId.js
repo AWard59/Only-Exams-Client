@@ -38,7 +38,7 @@ const Module = ({ msgAlert, user, userType }) => {
   const onEditModule = async (event) => {
     event.preventDefault()
     try {
-      const res = await editModule(user, moduleId.id, moduleName, moduleContent, courseId)
+      await editModule(user, moduleId.id, moduleName, moduleContent, courseId)
       setShowModuleEdit(false)
       setReRender(true)
       msgAlert({
