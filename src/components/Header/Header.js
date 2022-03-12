@@ -4,6 +4,8 @@ import Navbar from 'react-bootstrap/Navbar'
 import Container from 'react-bootstrap/Container'
 import { Link, NavLink } from 'react-router-dom'
 
+import '../../assets/navStyle.css'
+
 const authorOptions = (
   <>
     <NavLink to='/courses/' className='nav-link'>Courses</NavLink>
@@ -50,19 +52,26 @@ const Header = ({ user, userType }) => (
   <Navbar bg='primary' variant='dark' expand='md'>
     <Container>
       <Navbar.Brand>
-        <img src='../../../public/assets/Logo.png'></img>
         <Link to='/' style={{ color: '#FFF', textDecoration: 'none' }}>
-E-Learning
+          <img className='navLogo' src='https://i.imgur.com/E9e7s2r.png'></img>
         </Link>
       </Navbar.Brand>
       <Navbar.Toggle aria-controls='basic-navbar-nav' />
       <Navbar.Collapse id='basic-navbar-nav'>
         <Nav className='ms-auto'>
           {user && (
-            <span className='navbar-text me-2'>Welcome, {user.email}({userType})</span>
+            <span className='navbar-text me-2'>
+Welcome, {user.email}({userType})
+            </span>
           )}
           {alwaysOptions}
-          {userType === 'Student' ? studentOptions : userType === 'Tutor' ? tutorOptions : userType === 'Author' ? authorOptions : unauthenticatedOptions}
+          {userType === 'Student'
+            ? studentOptions
+            : userType === 'Tutor'
+              ? tutorOptions
+              : userType === 'Author'
+                ? authorOptions
+                : unauthenticatedOptions}
         </Nav>
       </Navbar.Collapse>
     </Container>
