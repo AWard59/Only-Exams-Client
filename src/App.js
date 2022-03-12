@@ -23,11 +23,9 @@ import ViewModuleIdStudent from './components/student/module/ViewModuleId'
 const App = () => {
   const [user, setUser] = useState(null)
   const [msgAlerts, setMsgAlerts] = useState([])
-  // const [isStudent, setIsStudent] = useState(null)
-  // const [isTutor, setIsTutor] = useState(null)
-  // const [isAuthor, setIsAuthor] = useState(null)
   const [userType, setUserType] = useState(null)
 
+  const clearUserType = () => setUserType(null)
   const clearUser = () => setUser(null)
 
   const msgAlert = ({ heading, message, variant }) => {
@@ -131,7 +129,12 @@ const App = () => {
           <Route
             path='/sign-out/'
             element={
-              <SignOut msgAlert={msgAlert} clearUser={clearUser} user={user} />
+              <SignOut
+                msgAlert={msgAlert}
+                user={user}
+                clearUserType={clearUserType}
+                clearUser={clearUser}
+              />
             }
           />
           <Route
@@ -143,7 +146,7 @@ const App = () => {
             element={<Profile msgAlert={msgAlert} user={user} />}
           />
           {/* Generic Routes */}
-          <Route path='/' element={<Home />} />
+          <Route path='/' element={<Home userType={userType} />} />
           <Route
             path='/courses/'
             element={<ViewCourses user={user} userType={userType} />}

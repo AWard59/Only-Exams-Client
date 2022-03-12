@@ -4,7 +4,7 @@ import { Navigate, Link } from 'react-router-dom'
 import Spinner from 'react-bootstrap/Spinner'
 import Button from 'react-bootstrap/Button'
 
-import { getCourses, enrolCourse } from '../../../api/courses'
+import { getCourses, enrolCourse, getCoursesStudent } from '../../../api/courses'
 
 const Courses = ({ msgAlert, user, userType }) => {
   const [courses, setCourses] = useState([])
@@ -12,9 +12,15 @@ const Courses = ({ msgAlert, user, userType }) => {
 
   useEffect(async () => {
     try {
-      const res = await getCourses(user)
-      setCourses(res.data.courses)
-      setLoading(false)
+      if (userType !== 'Student') {
+        const res = await getCoursesStudent(user)
+        setCourses(res.data.courses)
+        setLoading(false)
+      } else {
+        const res = await getCourses(user)
+        setCourses(res.data.courses)
+        setLoading(false)
+      }
     } catch {
       msgAlert({
         heading: 'No Courses',
