@@ -109,8 +109,6 @@ const Course = ({ msgAlert, user, userType }) => {
   }
 
   const tutorFilterFunc = list => {
-    console.log('list', list.email)
-    console.log('assignedTut', assignedTutors[0].tutor.email)
     return list.email !== assignedTutors[0].tutor.email
   }
 

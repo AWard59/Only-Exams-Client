@@ -9,8 +9,6 @@ import { getModules } from '../../../api/modules'
 
 const Course = ({ msgAlert, user, userType }) => {
   const [course, setCourse] = useState([])
-  const [courseName, setCourseName] = useState('')
-  const [courseDescription, setCourseDescription] = useState('')
   const [modules, setModules] = useState([])
   const [loading, setLoading] = useState(false)
   const [navigateBack, setShouldNavigateBack] = useState(false)
@@ -25,15 +23,10 @@ const Course = ({ msgAlert, user, userType }) => {
     try {
       const res = await getCourseById(user, courseId.id)
       setCourse(res.data.course)
-      setCourseName(res.data.course.name)
-      console.log(courseName)
-      setCourseDescription(res.data.course.description)
-      console.log(courseDescription)
       try {
         const resMod = await getModules(user, courseId.id)
         setModules(resMod.data.modules)
         setLoading(false)
-        console.log(modules)
       } catch (error) {
         console.error(error)
       }

@@ -39,7 +39,6 @@ const Module = ({ msgAlert, user, userType }) => {
     event.preventDefault()
     try {
       const res = await editModule(user, moduleId.id, moduleName, moduleContent, courseId)
-      console.log(res.data)
       setShowModuleEdit(false)
       setReRender(true)
       msgAlert({

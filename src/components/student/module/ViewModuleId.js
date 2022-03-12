@@ -28,8 +28,7 @@ const Module = ({ msgAlert, user, userType }) => {
 
   const onCompleteModule = async () => {
     try {
-      const res = await completeModule(user, moduleId.id)
-      console.log(res.data)
+      await completeModule(user, moduleId.id)
       setShouldNavigateBack(true)
     } catch {
 

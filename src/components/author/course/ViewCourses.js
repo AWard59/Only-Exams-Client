@@ -58,8 +58,7 @@ const Courses = ({ msgAlert, user, userType }) => {
 
   const handleEnrol = async (event) => {
     try {
-      const res = await enrolCourse(user, event.target.value)
-      console.log('res', res.data.enrolled_courses)
+      await enrolCourse(user, event.target.value)
       msgAlert({
         heading: 'Successfully enrolled!',
         message: 'You have successfully enrolled in this course!',
