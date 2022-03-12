@@ -52,7 +52,7 @@ const CreateModule = ({ msgAlert, user }) => {
               name='moduleName'
               value={moduleName}
               type='text'
-              placeholder='Course Name'
+              placeholder='Module Name'
               onChange={(event) => setModuleName(event.target.value)}
             />
           </Form.Group>

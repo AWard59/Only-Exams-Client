@@ -16,7 +16,6 @@ const SignUp = ({ msgAlert, setUser }) => {
 
   const onSignUp = async (event) => {
     event.preventDefault()
-
     try {
       await signUp(email, password, passwordConfirmation, userType)
       const res = await signIn(email, password)
@@ -88,7 +87,6 @@ const SignUp = ({ msgAlert, setUser }) => {
             <div key={'inline-radio}'} className='mb-3'>
               <Form.Check
                 inline
-                defaultChecked
                 label='Student'
                 name='userType'
                 value='is_student'
