@@ -9,6 +9,7 @@ import Button from 'react-bootstrap/Button'
 const CreateModule = ({ msgAlert, user }) => {
   const [moduleName, setModuleName] = useState('')
   const [moduleContent, setModuleContent] = useState('')
+  const [navigateBack, setShouldNavigateBack] = useState(false)
   const location = useLocation()
   const courseId = location.state.value
 
@@ -21,6 +22,7 @@ const CreateModule = ({ msgAlert, user }) => {
         message: `Module ${moduleName} Created Successfully!`,
         variant: 'success'
       })
+      setShouldNavigateBack(true)
     } catch (error) {
       msgAlert({
         heading: 'Create Module Failed with error: ' + error.message,
@@ -32,6 +34,10 @@ const CreateModule = ({ msgAlert, user }) => {
 
   if (!user) {
     return <Navigate to='/' />
+  }
+
+  if (navigateBack) {
+    return <Navigate to={`/courses/${courseId}/`} />
   }
 
   return (

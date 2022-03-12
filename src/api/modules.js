@@ -2,7 +2,6 @@ import apiUrl from '../apiConfig'
 import axios from 'axios'
 
 export const createModule = (user, name, content, course) => {
-  console.log(name, content, course)
   return axios.post(
     apiUrl + '/courses/modules/create/', {
       module: {
