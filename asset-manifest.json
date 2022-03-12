@@ -1,20 +1,20 @@
 {
   "files": {
-    "main.css": "/Capstone-Project-Client/static/css/main.61753732.chunk.css",
-    "main.js": "/Capstone-Project-Client/static/js/main.28848a56.chunk.js",
-    "main.js.map": "/Capstone-Project-Client/static/js/main.28848a56.chunk.js.map",
-    "runtime-main.js": "/Capstone-Project-Client/static/js/runtime-main.d7e0cda4.js",
-    "runtime-main.js.map": "/Capstone-Project-Client/static/js/runtime-main.d7e0cda4.js.map",
-    "static/js/2.841b6207.chunk.js": "/Capstone-Project-Client/static/js/2.841b6207.chunk.js",
-    "static/js/2.841b6207.chunk.js.map": "/Capstone-Project-Client/static/js/2.841b6207.chunk.js.map",
-    "index.html": "/Capstone-Project-Client/index.html",
-    "static/css/main.61753732.chunk.css.map": "/Capstone-Project-Client/static/css/main.61753732.chunk.css.map",
-    "static/js/2.841b6207.chunk.js.LICENSE.txt": "/Capstone-Project-Client/static/js/2.841b6207.chunk.js.LICENSE.txt"
+    "main.css": "/Only-Exams-Client/static/css/main.61753732.chunk.css",
+    "main.js": "/Only-Exams-Client/static/js/main.af488e5e.chunk.js",
+    "main.js.map": "/Only-Exams-Client/static/js/main.af488e5e.chunk.js.map",
+    "runtime-main.js": "/Only-Exams-Client/static/js/runtime-main.5073e6a0.js",
+    "runtime-main.js.map": "/Only-Exams-Client/static/js/runtime-main.5073e6a0.js.map",
+    "static/js/2.855d15eb.chunk.js": "/Only-Exams-Client/static/js/2.855d15eb.chunk.js",
+    "static/js/2.855d15eb.chunk.js.map": "/Only-Exams-Client/static/js/2.855d15eb.chunk.js.map",
+    "index.html": "/Only-Exams-Client/index.html",
+    "static/css/main.61753732.chunk.css.map": "/Only-Exams-Client/static/css/main.61753732.chunk.css.map",
+    "static/js/2.855d15eb.chunk.js.LICENSE.txt": "/Only-Exams-Client/static/js/2.855d15eb.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.d7e0cda4.js",
-    "static/js/2.841b6207.chunk.js",
+    "static/js/runtime-main.5073e6a0.js",
+    "static/js/2.855d15eb.chunk.js",
     "static/css/main.61753732.chunk.css",
-    "static/js/main.28848a56.chunk.js"
+    "static/js/main.af488e5e.chunk.js"
   ]
 }
