@@ -15,7 +15,7 @@ const CreateModule = ({ msgAlert, user }) => {
   const onCreateModule = async (event) => {
     event.preventDefault()
     try {
-      await createModule(user, moduleName, moduleContent, courseId.id)
+      await createModule(user, moduleName, moduleContent, courseId)
       msgAlert({
         heading: 'Module Creation Successful!',
         message: `Module ${moduleName} Created Successfully!`,

@@ -130,7 +130,7 @@ const Course = ({ msgAlert, user, userType }) => {
   const renderedModules = modules.map((m) => {
     return (
       <li key={m.id}>
-        <Link to={`/courses/modules/${m.id}/`} state={{ value: courseId.id }}>
+        <Link to={`/courses/modules/${m.id}/`} state={{ value: courseId }}>
           <h3 className='container shadow-lg'>{m.name}</h3>
         </Link>
         <hr />
