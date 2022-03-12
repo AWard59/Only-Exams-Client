@@ -4,7 +4,7 @@ import axios from 'axios'
 export const createModule = (user, name, content, course) => {
   console.log(user, name, content, course)
   return axios.post(
-    apiUrl + `/courses/${course}/modules/create/`, {
+    apiUrl + '/courses/modules/create/', {
       module: {
         name,
         content,
@@ -58,4 +58,21 @@ export const deleteModule = (user, id, course) => {
       Authorization: `Token ${user.token}`
     }
   })
+}
+
+export const completeModule = (user, module) => {
+  return axios.post(
+    apiUrl + `/courses/modules/${module}/complete/`,
+    {
+      complete: {
+        module_complete: module,
+        student: user.id
+      }
+    },
+    {
+      headers: {
+        Authorization: `Token ${user.token}`
+      }
+    }
+  )
 }

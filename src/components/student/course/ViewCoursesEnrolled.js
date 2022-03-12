@@ -25,7 +25,7 @@ const Courses = ({ msgAlert, user, userType }) => {
     } catch {
       msgAlert({
         heading: 'No Courses',
-        message: 'There are no courses. Please Add Course.',
+        message: 'There are no courses. Please enrol in a Course.',
         variant: 'danger'
       })
     }

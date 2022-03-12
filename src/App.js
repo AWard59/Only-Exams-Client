@@ -18,6 +18,7 @@ import Profile from './components/user/Profile'
 import CreateModule from './components/author/module/CreateModule'
 import ViewModuleId from './components/author/module/ViewModuleId'
 import ViewCourseIdStudent from './components/student/course/ViewCourseId'
+import ViewModuleIdStudent from './components/student/module/ViewModuleId'
 
 const App = () => {
   const [user, setUser] = useState(null)
@@ -66,6 +67,12 @@ const App = () => {
         path='/courses/enrolled/'
         element={<ViewCoursesEnrolled user={user} userType={userType} />}
       />
+      <Route
+        path='/courses/modules/:id/'
+        element={
+          <ViewModuleIdStudent msgAlert={msgAlert} user={user} userType={userType} />
+        }
+      />
     </>
   )
 
@@ -87,6 +94,12 @@ const App = () => {
             user={user}
             userType={userType}
           />
+        }
+      />
+      <Route
+        path='/courses/modules/:id/'
+        element={
+          <ViewModuleId msgAlert={msgAlert} user={user} userType={userType} />
         }
       />
     </>
@@ -134,16 +147,6 @@ const App = () => {
           <Route
             path='/courses/'
             element={<ViewCourses user={user} userType={userType} />}
-          />
-          <Route
-            path='/courses/modules/:id/'
-            element={
-              <ViewModuleId
-                msgAlert={msgAlert}
-                user={user}
-                userType={userType}
-              />
-            }
           />
           {userType === 'Student'
             ? studentRoutes

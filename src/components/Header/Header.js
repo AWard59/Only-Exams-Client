@@ -50,6 +50,7 @@ const Header = ({ user, userType }) => (
   <Navbar bg='primary' variant='dark' expand='md'>
     <Container>
       <Navbar.Brand>
+        <img src='../../../public/assets/Logo.png'></img>
         <Link to='/' style={{ color: '#FFF', textDecoration: 'none' }}>
 E-Learning
         </Link>
