@@ -12,7 +12,7 @@ const Courses = ({ msgAlert, user, userType }) => {
 
   useEffect(async () => {
     try {
-      if (userType !== 'Student') {
+      if (userType === 'Student') {
         const res = await getCoursesStudent(user)
         setCourses(res.data.courses)
         setLoading(false)
@@ -24,7 +24,7 @@ const Courses = ({ msgAlert, user, userType }) => {
     } catch {
       msgAlert({
         heading: 'No Courses',
-        message: 'There are no courses. Please Add Course.',
+        message: 'There are no courses available right now.',
         variant: 'danger'
       })
     }
