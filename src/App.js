@@ -63,12 +63,22 @@ const App = () => {
       />
       <Route
         path='/courses/enrolled/'
-        element={<ViewCoursesEnrolled user={user} userType={userType} />}
+        element={
+          <ViewCoursesEnrolled
+            msgAlert={msgAlert}
+            user={user}
+            userType={userType}
+          />
+        }
       />
       <Route
         path='/courses/modules/:id/'
         element={
-          <ViewModuleIdStudent msgAlert={msgAlert} user={user} userType={userType} />
+          <ViewModuleIdStudent
+            msgAlert={msgAlert}
+            user={user}
+            userType={userType}
+          />
         }
       />
     </>
