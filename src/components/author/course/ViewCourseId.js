@@ -109,7 +109,11 @@ const Course = ({ msgAlert, user, userType }) => {
   }
 
   const tutorFilterFunc = list => {
-    return list.email !== assignedTutors[0].tutor.email
+    if (assignedTutors.length >= 1) {
+      return list.email !== assignedTutors[0].tutor.email
+    } else {
+      return list.email
+    }
   }
 
   if (navigateBack) {
@@ -159,11 +163,19 @@ const Course = ({ msgAlert, user, userType }) => {
 
   const onAssignTutor = async (event) => {
     event.preventDefault()
-    try {
-      await assignTutor(user, newTutor.id, courseId.id)
-      setShowAssignTutors(false)
-    } catch (error) {
-      console.error(error)
+    if (event.target.value !== '') {
+      try {
+        await assignTutor(user, newTutor.id, courseId.id)
+        setShowAssignTutors(false)
+      } catch (error) {
+        console.error(error)
+      }
+    } else {
+      msgAlert({
+        heading: 'No Tutor Selected',
+        message: 'Please select a Tutor from the dropdown menu to assign',
+        variant: 'danger'
+      })
     }
   }
 
@@ -273,11 +285,11 @@ Save Changes
           <Modal.Body>
             <FloatingLabel label='Assign Tutor'>
               <Form.Control
-                aria-label='Default select example'
                 as='select'
                 value={tmap.value}
                 onChange={(event) => handleAss(event)}
               >
+                <option value=''>Select a Tutor to Assign</option>
                 options={tmap}
               </Form.Control>
             </FloatingLabel>
