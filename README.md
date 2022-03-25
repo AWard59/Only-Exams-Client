@@ -59,6 +59,7 @@ I then created the components on the front-end with React. This was not too bad 
 ### Unsolved Problems & Future Features
 
 Profile Update does not work - changes coming.
+Sign out does not refresh Nav links.
 
 #### Features I want to implement:-
 
