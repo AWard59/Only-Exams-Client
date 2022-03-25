@@ -19,6 +19,7 @@ import CreateModule from './components/author/module/CreateModule'
 import ViewModuleId from './components/author/module/ViewModuleId'
 import ViewCourseIdStudent from './components/student/course/ViewCourseId'
 import ViewModuleIdStudent from './components/student/module/ViewModuleId'
+import ViewCourseIdTutor from './components/tutor/course/ViewCourseId'
 
 const App = () => {
   const [user, setUser] = useState(null)
@@ -87,7 +88,16 @@ const App = () => {
   // Tutor Routes
   const tutorRoutes = (
     <>
-
+      <Route
+        path='/courses/:id/'
+        element={
+          <ViewCourseIdTutor
+            msgAlert={msgAlert}
+            user={user}
+            userType={userType}
+          />
+        }
+      />
     </>
   )
 

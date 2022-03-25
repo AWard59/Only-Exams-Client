@@ -66,3 +66,11 @@ export const getAssignedTutors = (user, course) => {
     }
   )
 }
+
+export const getEnrolledStudents = (user, course) => {
+  return axios.get(apiUrl + `/courses/${course}/enrolled/`, {
+    headers: {
+      Authorization: `Token ${user.token}`
+    }
+  })
+}
