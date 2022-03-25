@@ -75,3 +75,11 @@ export const completeModule = (user, module) => {
     }
   )
 }
+
+export const getCompleteModules = (user, course) => {
+  return axios.get(apiUrl + `/courses/${course}/modules/completed/`, {
+    headers: {
+      Authorization: `Token ${user.token}`
+    }
+  })
+}

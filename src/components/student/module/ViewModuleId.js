@@ -8,10 +8,12 @@ import { completeModule, getModuleById } from '../../../api/modules'
 const Module = ({ msgAlert, user, userType }) => {
   const [module, setModule] = useState([])
   const [navigateBack, setShouldNavigateBack] = useState(false)
+  const [completed, setCompleted] = useState(false)
   const { id } = useParams()
   const moduleId = { id }
   const location = useLocation()
-  const courseId = location.state.value
+  const courseId = location.state.course
+  const moduleCompleted = location.state.completed
 
   if (!user) {
     return <Navigate to='/' />
@@ -19,6 +21,7 @@ const Module = ({ msgAlert, user, userType }) => {
 
   useEffect(async () => {
     try {
+      if (moduleCompleted === '✅') setCompleted(true)
       const res = await getModuleById(user, moduleId.id, courseId)
       setModule(res.data.module)
     } catch (error) {
@@ -58,7 +61,33 @@ const Module = ({ msgAlert, user, userType }) => {
                 <h5 style={{ textAlign: 'center' }}>{module.content}</h5>
               </div>
               <div>
-                <a style={{ position: 'absolute', bottom: '5vh', right: '5vw', textDecoration: 'underline', color: 'blue', cursor: 'pointer' }} onClick={() => onCompleteModule()}>Mark Completed</a>
+                {completed
+                  ? (
+                    <p
+                      style={{
+                        position: 'absolute',
+                        bottom: '5vh',
+                        right: '5vw',
+                        fontWeight: 'bold',
+                        color: 'red'
+                      }}>
+                        Already Completed
+                    </p>
+                  )
+                  : (
+                    <a
+                      style={{
+                        position: 'absolute',
+                        bottom: '5vh',
+                        right: '5vw',
+                        textDecoration: 'underline',
+                        color: 'blue',
+                        cursor: 'pointer'
+                      }}
+                      onClick={() => onCompleteModule()}>
+Mark Completed
+                    </a>
+                  )}
               </div>
             </div>
           </div>

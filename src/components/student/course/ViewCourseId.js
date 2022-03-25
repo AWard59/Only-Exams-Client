@@ -5,11 +5,12 @@ import Button from 'react-bootstrap/Button'
 import Spinner from 'react-bootstrap/Spinner'
 
 import { getCourseById } from '../../../api/courses'
-import { getModules } from '../../../api/modules'
+import { getModules, getCompleteModules } from '../../../api/modules'
 
 const Course = ({ msgAlert, user, userType }) => {
   const [course, setCourse] = useState([])
   const [modules, setModules] = useState([])
+  const [completedModules, setCompletedModules] = useState([])
   const [loading, setLoading] = useState(false)
   const [navigateBack, setShouldNavigateBack] = useState(false)
   const { id } = useParams()
@@ -27,6 +28,14 @@ const Course = ({ msgAlert, user, userType }) => {
         const resMod = await getModules(user, courseId.id)
         setModules(resMod.data.modules)
         setLoading(false)
+        try {
+          const resModCompleted = await getCompleteModules(user, courseId.id)
+          setCompletedModules(resModCompleted.data.completed_module.map((cm) => {
+            return cm.module_complete.id
+          }))
+        } catch (error) {
+          console.error(error)
+        }
       } catch (error) {
         console.error(error)
       }
@@ -35,16 +44,26 @@ const Course = ({ msgAlert, user, userType }) => {
     }
   }, [])
 
-  const renderedModules = modules.map((m) => {
+  const reducedModules = modules.filter((m) => {
+    if (completedModules.includes(m.id)) {
+      m.completed = '✅'
+      return m
+    } else {
+      return m
+    }
+  }, [loading])
+
+  const renderedModules = reducedModules.map((m) => {
     return (
       <li key={m.id}>
-        <Link to={`/courses/modules/${m.id}/`} state={{ value: courseId.id }}>
-          <h3 className='container shadow-lg'>{m.name}</h3>
+        <Link to={`/courses/modules/${m.id}/`} state={{ course: courseId.id, completed: m.completed }}>
+          <h3 className='container shadow-lg'>{m.completed}{m.name}</h3>
         </Link>
         <hr />
       </li>
     )
   })
+
   const listModules = <ol className='container'>{renderedModules}</ol>
 
   if (navigateBack) {
