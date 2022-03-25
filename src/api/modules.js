@@ -51,8 +51,8 @@ export const editModule = (user, id, name, content, course) => {
   )
 }
 
-export const deleteModule = (user, id, course) => {
-  return axios.delete(apiUrl + `/courses/${course}/modules/${id}/`, {
+export const deleteModule = (user, id) => {
+  return axios.delete(apiUrl + `/courses/modules/${id}/`, {
     headers: {
       Authorization: `Token ${user.token}`
     }

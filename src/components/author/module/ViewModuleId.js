@@ -38,7 +38,7 @@ const Module = ({ msgAlert, user, userType }) => {
   const onEditModule = async (event) => {
     event.preventDefault()
     try {
-      await editModule(user, moduleId.id, moduleName, moduleContent, courseId)
+      await editModule(user, moduleId.id, moduleName, moduleContent, courseId.id)
       setShowModuleEdit(false)
       setReRender(true)
       msgAlert({
@@ -58,7 +58,7 @@ const Module = ({ msgAlert, user, userType }) => {
   const onDelete = async (event) => {
     event.preventDefault()
     try {
-      await deleteModule(user, moduleId.id, courseId)
+      await deleteModule(user, moduleId.id)
       setShowModuleEdit(false)
       setShouldNavigateBack(true)
       msgAlert({
