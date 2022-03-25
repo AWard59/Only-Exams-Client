@@ -58,13 +58,12 @@ I then created the components on the front-end with React. This was not too bad 
 
 ### Unsolved Problems & Future Features
 
-No currently known issues as of this commit.
+Profile Update does not work - changes coming.
 
 #### Features I want to implement:-
 
 - Upload Course Images
-- Visualize Module Complete
 - Markdown Module Content
 - Tutor Edit Modules
 - Tutor see enrolled students
-- User First & Last
+- User First & Last names for profile
