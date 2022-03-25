@@ -163,10 +163,11 @@ const Course = ({ msgAlert, user, userType }) => {
 
   const onAssignTutor = async (event) => {
     event.preventDefault()
-    if (event.target.value !== '') {
+    if (event.target.value !== undefined) {
       try {
         await assignTutor(user, newTutor.id, courseId.id)
         setShowAssignTutors(false)
+        setReRender(true)
       } catch (error) {
         console.error(error)
       }
