@@ -4,7 +4,7 @@ import { Navigate, Link } from 'react-router-dom'
 import Spinner from 'react-bootstrap/Spinner'
 import Button from 'react-bootstrap/Button'
 
-import { getCourses, enrolCourse, getCoursesStudent } from '../../../api/courses'
+import { getCourses, enrolCourse, getCoursesStudent, getCoursesTutor } from '../../../api/courses'
 
 const Courses = ({ msgAlert, user, userType }) => {
   const [courses, setCourses] = useState([])
@@ -14,6 +14,10 @@ const Courses = ({ msgAlert, user, userType }) => {
     try {
       if (userType === 'Student') {
         const res = await getCoursesStudent(user)
+        setCourses(res.data.courses)
+        setLoading(false)
+      } else if (userType === 'Tutor') {
+        const res = await getCoursesTutor(user)
         setCourses(res.data.courses)
         setLoading(false)
       } else {
@@ -35,14 +39,30 @@ const Courses = ({ msgAlert, user, userType }) => {
   }
 
   const renderedCourses = courses.map(course => {
-    if (userType !== 'Student') {
+    if (userType === 'Student') {
       return (
         <li key={course.id}>
           <div className='container'>
-            <Link to={`/courses/${course.id}/`}>
-              <h1>{course.name}</h1>
-            </Link>
+            <h1>{course.name}</h1>
             <h5>{course.description}</h5>
+            <Button
+              variant='success'
+              value={course.id}
+              onClick={(event) => handleEnrol(event)}>
+Enrol
+            </Button>
+            <hr />
+          </div>
+        </li>
+      )
+    } else if (userType === 'Tutor') {
+      return (
+        <li key={course.course.id}>
+          <div className='container'>
+            <Link to={`/courses/${course.course.id}/`}>
+              <h1>{course.course.name}</h1>
+            </Link>
+            <h5>{course.course.description}</h5>
             <hr />
           </div>
         </li>
@@ -51,9 +71,10 @@ const Courses = ({ msgAlert, user, userType }) => {
       return (
         <li key={course.id}>
           <div className='container'>
-            <h1>{course.name}</h1>
+            <Link to={`/courses/${course.id}/`}>
+              <h1>{course.name}</h1>
+            </Link>
             <h5>{course.description}</h5>
-            <Button variant='success' value={course.id} onClick={(event) => handleEnrol(event)}>Enrol</Button>
             <hr />
           </div>
         </li>

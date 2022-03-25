@@ -8,7 +8,7 @@ import '../../assets/navStyle.css'
 
 const authorOptions = (
   <>
-    <NavLink to='/courses/' className='nav-link'>Courses</NavLink>
+    <NavLink to='/courses/' className='nav-link'>Your Courses</NavLink>
     <NavLink to='/courses/create/' className='nav-link'>Add Course</NavLink>
     <NavLink to='/change-password/' className='nav-link'>Change Password</NavLink>
     <NavLink to='/profile/' className='nav-link'>Profile</NavLink>
@@ -18,7 +18,7 @@ const authorOptions = (
 
 const tutorOptions = (
   <>
-    <NavLink to='/courses/' className='nav-link'>Courses</NavLink>
+    <NavLink to='/courses/' className='nav-link'>Your Courses</NavLink>
     <NavLink to='/change-password/' className='nav-link'>Change Password</NavLink>
     <NavLink to='/profile/' className='nav-link'>Profile</NavLink>
     <NavLink to='/sign-out/' className='nav-link'>Sign Out</NavLink>
