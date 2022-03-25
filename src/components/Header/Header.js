@@ -37,14 +37,9 @@ const studentOptions = (
 
 const unauthenticatedOptions = (
   <>
+    <NavLink to='/' className='nav-link'>Home</NavLink>
     <NavLink to='/sign-up/' className='nav-link'>Sign Up</NavLink>
     <NavLink to='/sign-in/' className='nav-link'>Sign In</NavLink>
-  </>
-)
-
-const alwaysOptions = (
-  <>
-    <NavLink to='/' className='nav-link'>Home</NavLink>
   </>
 )
 
@@ -52,7 +47,7 @@ const Header = ({ user, userType }) => (
   <Navbar bg='primary' variant='dark' expand='md'>
     <Container>
       <Navbar.Brand>
-        <Link to='/' style={{ color: '#FFF', textDecoration: 'none' }}>
+        <Link to='/courses/' style={{ color: '#FFF', textDecoration: 'none' }}>
           <img className='navLogo' src='https://i.imgur.com/E9e7s2r.png'></img>
         </Link>
       </Navbar.Brand>
@@ -64,7 +59,6 @@ const Header = ({ user, userType }) => (
 Welcome, {user.email}({userType})
             </span>
           )}
-          {alwaysOptions}
           {userType === 'Student'
             ? studentOptions
             : userType === 'Tutor'
