@@ -65,6 +65,4 @@ Sign out does not refresh Nav links.
 
 - Upload Course Images
 - Markdown Module Content
-- Tutor Edit Modules
-- Tutor see enrolled students
 - User First & Last names for profile
