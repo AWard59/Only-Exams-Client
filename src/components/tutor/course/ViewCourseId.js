@@ -13,14 +13,12 @@ import { getEnrolledStudents } from '../../../api/user'
 
 const Course = ({ msgAlert, user, userType }) => {
   const [course, setCourse] = useState([])
-  const [courseName, setCourseName] = useState('')
-  const [courseDescription, setCourseDescription] = useState('')
   const [modules, setModules] = useState([])
   const [enrolledStudents, setEnrolledStudents] = useState([])
   const [loading, setLoading] = useState(false)
   const [navigateBack, setShouldNavigateBack] = useState(false)
   const [navigateAddModule, setShouldNavigateAddModule] = useState(false)
-  const [reRender, setReRender] = useState(false)
+  // const [reRender, setReRender] = useState(false)
   const { id } = useParams()
   const courseId = { id }
 
@@ -32,9 +30,6 @@ const Course = ({ msgAlert, user, userType }) => {
     try {
       const res = await getCourseById(user, courseId.id)
       setCourse(res.data.course)
-      setCourseName(res.data.course.name)
-      setCourseDescription(res.data.course.description)
-      console.log(courseName, courseDescription)
       try {
         const resMod = await getModules(user, courseId.id)
         setModules(resMod.data.modules)
@@ -51,10 +46,10 @@ const Course = ({ msgAlert, user, userType }) => {
     } catch (error) {
       console.error(error)
     }
-  }, [reRender])
+  }, [])
 
   if (navigateBack) {
-    setReRender(false) // temporary for testing
+    // setReRender(false) // temporary for testing
     return <Navigate to='/courses/' />
   }
 
@@ -111,7 +106,6 @@ const Course = ({ msgAlert, user, userType }) => {
               <div className='container shadow'>
                 <h5>Enrolled Students:</h5>
                 {listStudents}
-                {/* <Button onClick={handleShowAssignTutors}>Assign Tutors</Button> */}
                 <br />
                 <br />
               </div>
@@ -131,34 +125,6 @@ const Course = ({ msgAlert, user, userType }) => {
           </div>
         </div>
       </div>
-
-      {/* Tutor Assign Modal */}
-      {/* <div>
-        <Modal
-          show={showAssignTutors}
-          onHide={() => setShowAssignTutors(false)}>
-          <Modal.Header closeButton>
-            <Modal.Title>Assign Tutor</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <FloatingLabel label='Assign Tutor'>
-              <Form.Control
-                as='select'
-                value={tmap.value}
-                onChange={(event) => handleAss(event)}
-              >
-                <option value=''>Select a Tutor to Assign</option>
-                options={tmap}
-              </Form.Control>
-            </FloatingLabel>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant='primary' onClick={onAssignTutor}>
-Save Changes
-            </Button>
-          </Modal.Footer>
-        </Modal>
-      </div> */}
     </>
   )
 }

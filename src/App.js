@@ -98,6 +98,12 @@ const App = () => {
           />
         }
       />
+      <Route
+        path='/courses/modules/:id/'
+        element={
+          <ViewModuleId msgAlert={msgAlert} user={user} userType={userType} />
+        }
+      />
     </>
   )
 

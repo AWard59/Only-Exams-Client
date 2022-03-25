@@ -76,7 +76,7 @@ const Module = ({ msgAlert, user, userType }) => {
   }
 
   if (navigateBack) {
-    return <Navigate to={`/courses/${courseId}/`} />
+    return <Navigate to={`/courses/${courseId.id}/`} />
   }
 
   return (
