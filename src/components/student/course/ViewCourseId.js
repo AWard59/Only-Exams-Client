@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { Navigate, useParams, Link } from 'react-router-dom'
+import ReactMarkdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
 
 import Button from 'react-bootstrap/Button'
 import Spinner from 'react-bootstrap/Spinner'
 
-import { getCourseById } from '../../../api/courses'
+import { getCourseByIdStudent } from '../../../api/courses'
 import { getModules, getCompleteModules } from '../../../api/modules'
 
 const Course = ({ msgAlert, user, userType }) => {
@@ -22,7 +24,7 @@ const Course = ({ msgAlert, user, userType }) => {
 
   useEffect(async () => {
     try {
-      const res = await getCourseById(user, courseId.id)
+      const res = await getCourseByIdStudent(user, courseId.id)
       setCourse(res.data.course)
       try {
         const resMod = await getModules(user, courseId.id)
@@ -82,7 +84,11 @@ const Course = ({ msgAlert, user, userType }) => {
             <div className='col-3'>
               <div className='container shadow'>
                 <h1>{course.name}</h1>
-                <h5>{course.description}</h5>
+                <div className='col-3'>
+                  <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                    {course.description}
+                  </ReactMarkdown>
+                </div>
                 <br />
                 <br />
               </div>

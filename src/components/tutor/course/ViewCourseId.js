@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { Navigate, useParams, Link } from 'react-router-dom'
+import ReactMarkdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
 
 import Button from 'react-bootstrap/Button'
-// import Modal from 'react-bootstrap/Modal'
-// import Form from 'react-bootstrap/Form'
 import Spinner from 'react-bootstrap/Spinner'
-// import FloatingLabel from 'react-bootstrap/FloatingLabel'
 
 import { getCourseById } from '../../../api/courses'
 import { getModules } from '../../../api/modules'
@@ -49,7 +48,6 @@ const Course = ({ msgAlert, user, userType }) => {
   }, [])
 
   if (navigateBack) {
-    // setReRender(false) // temporary for testing
     return <Navigate to='/courses/' />
   }
 
@@ -98,7 +96,9 @@ const Course = ({ msgAlert, user, userType }) => {
             <div className='col-3'>
               <div className='container shadow'>
                 <h2>{course.name}</h2>
-                <h5>{course.description}</h5>
+                <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                  {course.description}
+                </ReactMarkdown>
                 <br />
                 <br />
               </div>

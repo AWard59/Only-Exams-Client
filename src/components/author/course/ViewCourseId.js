@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Navigate, useParams, Link } from 'react-router-dom'
+import ReactMarkdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
 
 import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
@@ -45,6 +47,7 @@ const Course = ({ msgAlert, user, userType }) => {
         try {
           const resTut = await getAssignedTutors(user, courseId.id)
           setAssignedTutors(resTut.data.assigned_tutors)
+          setReRender(false)
         } catch (error) {
           console.error(error)
         }
@@ -189,10 +192,14 @@ const Course = ({ msgAlert, user, userType }) => {
         <br />
         <div className='container'>
           <div className='row'>
-            <div className='col-3'>
+            <div className='col-5'>
               <div className='container shadow'>
                 <h2>{course.name}</h2>
-                <h5>{course.description}</h5>
+                <div className='col-3'>
+                  <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                    {course.description}
+                  </ReactMarkdown>
+                </div>
                 <Button onClick={() => setShowCourseEdit(true)}>Edit</Button>
                 <Button variant='danger' onClick={onDelete}>
 Delete
@@ -288,10 +295,9 @@ Save Changes
               <Form.Control
                 as='select'
                 value={tmap.value}
-                onChange={(event) => handleAss(event)}
-              >
+                onChange={(event) => handleAss(event)}>
                 <option value=''>Select a Tutor to Assign</option>
-                options={tmap}
+options={tmap}
               </Form.Control>
             </FloatingLabel>
           </Modal.Body>

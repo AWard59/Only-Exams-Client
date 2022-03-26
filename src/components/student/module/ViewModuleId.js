@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Navigate, useLocation, useParams } from 'react-router-dom'
+import ReactMarkdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
 
 import Button from 'react-bootstrap/Button'
 
@@ -57,8 +59,10 @@ const Module = ({ msgAlert, user, userType }) => {
                 <hr />
                 <br />
               </div>
-              <div>
-                <h5 style={{ textAlign: 'center' }}>{module.content}</h5>
+              <div style={{ textAlign: 'center' }}>
+                <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                  {module.content}
+                </ReactMarkdown>
               </div>
               <div>
                 {completed
@@ -71,7 +75,7 @@ const Module = ({ msgAlert, user, userType }) => {
                         fontWeight: 'bold',
                         color: 'red'
                       }}>
-                        Already Completed
+Already Completed
                     </p>
                   )
                   : (

@@ -46,6 +46,14 @@ export const getCourseById = (user, id) => {
   })
 }
 
+export const getCourseByIdStudent = (user, id) => {
+  return axios.get(apiUrl + `/courses/${id}/view/`, {
+    headers: {
+      Authorization: `Token ${user.token}`
+    }
+  })
+}
+
 export const editCourse = (user, id, name, description) => {
   return axios.patch(
     apiUrl + `/courses/${id}/`, {

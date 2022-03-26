@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Navigate, useLocation, useParams } from 'react-router-dom'
+import ReactMarkdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
 
 import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
@@ -91,7 +93,9 @@ const Module = ({ msgAlert, user, userType }) => {
             <div className='col-3'>
               <div className='container shadow'>
                 <h2>{module.name}</h2>
-                <h5>{module.content}</h5>
+                <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                  {module.content}
+                </ReactMarkdown>
                 <Button onClick={() => setShowModuleEdit(true)}>Edit</Button>
                 <Button variant='danger' onClick={onDelete}>
 Delete
@@ -131,9 +135,7 @@ Delete
                     as='textarea'
                     rows='6'
                     placeholder='Module Content'
-                    onChange={(event) =>
-                      setModuleContent(event.target.value)
-                    }
+                    onChange={(event) => setModuleContent(event.target.value)}
                   />
                 </FloatingLabel>
               </Form.Group>

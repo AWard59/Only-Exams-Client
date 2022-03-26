@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { Navigate, Link } from 'react-router-dom'
+import ReactMarkdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
 
 import Spinner from 'react-bootstrap/Spinner'
-// import Button from 'react-bootstrap/Button'
 
 import { getEnrolledCourses } from '../../../api/courses'
 
@@ -42,7 +43,9 @@ const Courses = ({ msgAlert, user, userType }) => {
           <Link to={`/courses/${course.id}/`}>
             <h1>{course.name}</h1>
           </Link>
-          <h5>{course.description}</h5>
+          <ReactMarkdown remarkPlugins={[remarkGfm]}>
+            {course.description}
+          </ReactMarkdown>
           <hr />
         </div>
       </li>
