@@ -1,20 +1,20 @@
 {
   "files": {
     "main.css": "/Only-Exams-Client/static/css/main.aa0ef116.chunk.css",
-    "main.js": "/Only-Exams-Client/static/js/main.0263c601.chunk.js",
-    "main.js.map": "/Only-Exams-Client/static/js/main.0263c601.chunk.js.map",
+    "main.js": "/Only-Exams-Client/static/js/main.f237c990.chunk.js",
+    "main.js.map": "/Only-Exams-Client/static/js/main.f237c990.chunk.js.map",
     "runtime-main.js": "/Only-Exams-Client/static/js/runtime-main.5073e6a0.js",
     "runtime-main.js.map": "/Only-Exams-Client/static/js/runtime-main.5073e6a0.js.map",
-    "static/js/2.9ce0d115.chunk.js": "/Only-Exams-Client/static/js/2.9ce0d115.chunk.js",
-    "static/js/2.9ce0d115.chunk.js.map": "/Only-Exams-Client/static/js/2.9ce0d115.chunk.js.map",
+    "static/js/2.bd7af895.chunk.js": "/Only-Exams-Client/static/js/2.bd7af895.chunk.js",
+    "static/js/2.bd7af895.chunk.js.map": "/Only-Exams-Client/static/js/2.bd7af895.chunk.js.map",
     "index.html": "/Only-Exams-Client/index.html",
     "static/css/main.aa0ef116.chunk.css.map": "/Only-Exams-Client/static/css/main.aa0ef116.chunk.css.map",
-    "static/js/2.9ce0d115.chunk.js.LICENSE.txt": "/Only-Exams-Client/static/js/2.9ce0d115.chunk.js.LICENSE.txt"
+    "static/js/2.bd7af895.chunk.js.LICENSE.txt": "/Only-Exams-Client/static/js/2.bd7af895.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.5073e6a0.js",
-    "static/js/2.9ce0d115.chunk.js",
+    "static/js/2.bd7af895.chunk.js",
     "static/css/main.aa0ef116.chunk.css",
-    "static/js/main.0263c601.chunk.js"
+    "static/js/main.f237c990.chunk.js"
   ]
 }
