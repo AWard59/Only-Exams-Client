@@ -4,7 +4,7 @@ import { Navigate } from 'react-router-dom'
 import { signOut } from '../../api/auth'
 import { signOutSuccess } from '../AutoDismissAlert/messages'
 
-const SignOut = ({ msgAlert, clearUser, user }) => {
+const SignOut = ({ msgAlert, clearUser, clearUserType, user }) => {
   const [shouldNavigate, setShouldNavigate] = useState(false)
 
   // this is like componentDidMount, it will run whenever the SignOut component
@@ -24,6 +24,7 @@ const SignOut = ({ msgAlert, clearUser, user }) => {
 
       // reset the user back to its initial value
       clearUser()
+      clearUserType()
       setShouldNavigate(true)
     }
     performSignOut()

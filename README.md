@@ -58,7 +58,7 @@ I then created the components on the front-end with React. This was not too bad 
 
 ### Unsolved Problems & Future Features
 
-Sign out does not refresh Nav links.
+No currently known issues as of this commit.
 
 #### Features I want to implement:-
 

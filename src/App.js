@@ -180,7 +180,7 @@ const App = () => {
             element={<Profile msgAlert={msgAlert} user={user} />}
           />
           {/* Generic Routes */}
-          <Route path='/' element={<Home userType={userType} />} />
+          <Route path='/' element={<Home user={user} userType={userType} />} />
           <Route
             path='/courses/'
             element={<ViewCourses user={user} userType={userType} />}
