@@ -35,6 +35,10 @@ const CreateCourse = ({ msgAlert, user }) => {
     return <Navigate to='/' />
   }
 
+  if (shouldNavigate) {
+    return <Navigate to='/courses/' />
+  }
+
   return (
     <div className='row'>
       <div className='col-sm-10 col-md-8 mx-auto mt-5'>

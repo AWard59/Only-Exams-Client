@@ -9,38 +9,36 @@ import { profileUpdate, profileView } from '../../api/user'
 const Profile = ({ msgAlert, user }) => {
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
-  const [shouldNavigate, setShouldNavigate] = useState(false)
+  const [reRender, setReRender] = useState(false)
 
   useEffect(async () => {
     try {
       const res = await profileView(user)
-      console.log(res.data)
+      setFirstName(res.data.first_name)
+      setLastName(res.data.last_name)
     } catch (error) {
       console.error(error)
     }
-  }, [])
+  }, [reRender])
 
   const onUpdateProfile = async (event) => {
     event.preventDefault()
-
     try {
       await profileUpdate(firstName, lastName, user)
-      // msgAlert({
-      //   heading: 'Change Password Success',
-      //   message:
-      //   variant: 'success'
-      // })
-      setShouldNavigate(true)
+      msgAlert({
+        heading: 'Profile Update Success',
+        variant: 'success'
+      })
+      setReRender(true)
     } catch (error) {
-      // msgAlert({
-      //   heading: 'Change Password Failed with error: ' + error.message,
-      //   message:
-      //   variant: 'danger'
-      // })
+      msgAlert({
+        heading: 'Profile Update failed',
+        variant: 'danger'
+      })
     }
   }
 
-  if (!user || shouldNavigate) {
+  if (!user) {
     return <Navigate to='/' />
   }
 

@@ -6,8 +6,8 @@ export const profileUpdate = (firstName, lastName, user) => {
     apiUrl + '/profile/',
     {
       userData: {
-        firstName,
-        lastName
+        first_name: firstName,
+        last_name: lastName
       }
     },
     {

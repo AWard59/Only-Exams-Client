@@ -126,6 +126,14 @@ const App = () => {
           <ViewModuleId msgAlert={msgAlert} user={user} userType={userType} />
         }
       />
+      <Route
+        path='/courses/create/'
+        element={<CreateCourse msgAlert={msgAlert} user={user} />}
+      />
+      <Route
+        path='/courses/:id/modules/create/'
+        element={<CreateModule msgAlert={msgAlert} user={user} />}
+      />
     </>
   )
 
@@ -184,16 +192,6 @@ const App = () => {
               : userType === 'Author'
                 ? authorRoutes
                 : ''}
-          {/* Author Routes */}
-          <Route
-            path='/courses/create/'
-            element={<CreateCourse msgAlert={msgAlert} user={user} />}
-          />
-          <Route
-            path='/courses/:id/modules/create/'
-            element={<CreateModule msgAlert={msgAlert} user={user} />}
-          />
-          {/* Tutor Routes */}
         </Routes>
       </main>
     </>
