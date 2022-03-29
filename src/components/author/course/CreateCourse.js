@@ -5,17 +5,30 @@ import { createCourse } from '../../../api/courses'
 
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
+import FormData from 'form-data'
 
 const CreateCourse = ({ msgAlert, user }) => {
   const [shouldNavigate, setShouldNavigate] = useState(false)
   const [courseName, setCourseName] = useState('')
   const [courseDescription, setCourseDescription] = useState('')
+  const [courseImage, setCourseImage] = useState(null)
 
   const onCreateCourse = async (event) => {
     event.preventDefault()
-
+    const formData = new FormData()
+    formData.append('name', courseName)
+    formData.append('description', courseDescription)
+    if (courseImage) {
+      formData.append('image', courseImage[0], courseImage[0].name)
+    }
     try {
-      await createCourse(user, courseName, courseDescription)
+      const config = {
+        headers: {
+          Authorization: `Token ${user.token}`,
+          'Content-Type': 'multipart/form-data'
+        }
+      }
+      await createCourse(formData, config)
       msgAlert({
         heading: 'Course Creation Successful!',
         message: `Course ${courseName} Created Successfully!`,
@@ -66,6 +79,15 @@ const CreateCourse = ({ msgAlert, user }) => {
               rows='6'
               placeholder='Course Description'
               onChange={(event) => setCourseDescription(event.target.value)}
+            />
+          </Form.Group>
+          <Form.Group controlId='image'>
+            <Form.Label>Course Image</Form.Label>
+            <Form.Control
+              name='image'
+              type='file'
+              accept='image/png, image/jpeg'
+              onChange={(event) => setCourseImage(event.target.files)}
             />
           </Form.Group>
           <Button className='mt-2' variant='primary' type='submit'>

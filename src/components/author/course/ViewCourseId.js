@@ -12,11 +12,13 @@ import FloatingLabel from 'react-bootstrap/FloatingLabel'
 import { getCourseById, editCourse, deleteCourse } from '../../../api/courses'
 import { getModules } from '../../../api/modules'
 import { getTutors, assignTutor, getAssignedTutors } from '../../../api/user'
+import apiUrl from '../../../apiConfig'
 
 const Course = ({ msgAlert, user, userType }) => {
   const [course, setCourse] = useState([])
   const [courseName, setCourseName] = useState('')
   const [courseDescription, setCourseDescription] = useState('')
+  const [courseImage, setCourseImage] = useState(null)
   const [showCourseEdit, setShowCourseEdit] = useState(false)
   const [modules, setModules] = useState([])
   const [assignedTutors, setAssignedTutors] = useState([])
@@ -40,6 +42,9 @@ const Course = ({ msgAlert, user, userType }) => {
       setCourse(res.data.course)
       setCourseName(res.data.course.name)
       setCourseDescription(res.data.course.description)
+      if (res.data.course.image) {
+        setCourseImage(res.data.course.image)
+      }
       try {
         const resMod = await getModules(user, courseId.id)
         setModules(resMod.data.modules)
@@ -194,6 +199,9 @@ const Course = ({ msgAlert, user, userType }) => {
           <div className='row'>
             <div className='col-5'>
               <div className='container shadow'>
+                <div className='col-5'>
+                  <img src={apiUrl + courseImage} className='col-12'></img>
+                </div>
                 <h2>{course.name}</h2>
                 <div className='col-3'>
                   <ReactMarkdown remarkPlugins={[remarkGfm]}>

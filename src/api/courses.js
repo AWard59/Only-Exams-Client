@@ -1,17 +1,8 @@
 import apiUrl from '../apiConfig'
 import axios from 'axios'
 
-export const createCourse = (user, name, description) => {
-  return axios.post(apiUrl + '/courses/create/', {
-    course: {
-      name,
-      description
-    }
-  }, {
-    headers: {
-      Authorization: `Token ${user.token}`
-    }
-  })
+export const createCourse = (formData, config) => {
+  return axios.post(`${apiUrl}/courses/create/`, formData, config)
 }
 
 export const getCourses = (user) => {
