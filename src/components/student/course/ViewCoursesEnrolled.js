@@ -4,8 +4,12 @@ import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 
 import Spinner from 'react-bootstrap/Spinner'
+import Card from 'react-bootstrap/Card'
+import CardGroup from 'react-bootstrap/CardGroup'
+import Row from 'react-bootstrap/Row'
 
 import { getEnrolledCourses } from '../../../api/courses'
+import apiUrl from '../../../apiConfig'
 
 const Courses = ({ msgAlert, user, userType }) => {
   const [courses, setCourses] = useState([])
@@ -38,32 +42,36 @@ const Courses = ({ msgAlert, user, userType }) => {
 
   const renderedCourses = courses.map((course) => {
     return (
-      <li key={course.id}>
-        <div className='container'>
+      <>
+        <Card border='primary' className='shadow' key={course.id}>
           <Link to={`/courses/${course.id}/`}>
-            <h1>{course.name}</h1>
+            <Card.Img variant='top' src={apiUrl + course.image} />
           </Link>
-          <ReactMarkdown remarkPlugins={[remarkGfm]}>
-            {course.description}
-          </ReactMarkdown>
-          <hr />
-        </div>
-      </li>
+          <Card.Body>
+            <Card.Title>{course.name}</Card.Title>
+            <ReactMarkdown remarkPlugins={[remarkGfm]}>
+              {course.description}
+            </ReactMarkdown>
+          </Card.Body>
+        </Card>
+      </>
     )
   })
-
-  const listCourses = <ul>{renderedCourses}</ul>
 
   return (
     <>
       <h3>Your Enrolled Courses:</h3>
-      {!loading
-        ? (
-          listCourses
-        )
-        : (
-          <Spinner animation='border' variant='primary' />
-        )}
+      <CardGroup>
+        <Row md={3} className='g-4'>
+          {!loading
+            ? (
+              renderedCourses
+            )
+            : (
+              <Spinner animation='border' variant='primary' />
+            )}
+        </Row>
+      </CardGroup>
     </>
   )
 }

@@ -5,8 +5,12 @@ import remarkGfm from 'remark-gfm'
 
 import Spinner from 'react-bootstrap/Spinner'
 import Button from 'react-bootstrap/Button'
+import Card from 'react-bootstrap/Card'
+import CardGroup from 'react-bootstrap/CardGroup'
+import Row from 'react-bootstrap/Row'
 
 import { getCourses, enrolCourse, getCoursesStudent, getCoursesTutor } from '../../../api/courses'
+import apiUrl from '../../../apiConfig'
 
 const Courses = ({ msgAlert, user, userType }) => {
   const [courses, setCourses] = useState([])
@@ -43,49 +47,52 @@ const Courses = ({ msgAlert, user, userType }) => {
   const renderedCourses = courses.map(course => {
     if (userType === 'Student') {
       return (
-        <li key={course.id}>
-          <div className='container'>
-            <h1>{course.name}</h1>
-            <h5>{course.description}</h5>
+        <Card border='primary' className='shadow' key={course.id}>
+          <Card.Img variant='top' src={apiUrl + course.image} />
+          <Card.Body>
+            <Card.Title>{course.name}</Card.Title>
+            <ReactMarkdown remarkPlugins={[remarkGfm]}>
+              {course.description}
+            </ReactMarkdown>
             <Button
               variant='success'
               value={course.id}
               onClick={(event) => handleEnrol(event)}>
 Enrol
             </Button>
-            <hr />
-          </div>
-        </li>
+          </Card.Body>
+        </Card>
       )
     } else if (userType === 'Tutor') {
       return (
-        <li key={course.course.id}>
-          <div className='container'>
-            <Link to={`/courses/${course.course.id}/`}>
-              <h1>{course.course.name}</h1>
-            </Link>
-            <h5>{course.course.description}</h5>
-            <hr />
-          </div>
-        </li>
+        <Card border='primary' className='shadow' key={course.course.id}>
+          <Link to={`/courses/${course.course.id}/`}>
+            <Card.Img variant='top' src={apiUrl + course.course.image} />
+          </Link>
+          <Card.Body>
+            <Card.Title>{course.course.name}</Card.Title>
+            <ReactMarkdown remarkPlugins={[remarkGfm]}>
+              {course.course.description}
+            </ReactMarkdown>
+          </Card.Body>
+        </Card>
       )
     } else {
       return (
-        <li key={course.id}>
-          <div className='container'>
-            <Link to={`/courses/${course.id}/`}>
-              <h1>{course.name}</h1>
-            </Link>
+        <Card border='primary' className='shadow' key={course.id}>
+          <Link to={`/courses/${course.id}/`}>
+            <Card.Img variant='top' src={apiUrl + course.image} />
+          </Link>
+          <Card.Body>
+            <Card.Title>{course.name}</Card.Title>
             <ReactMarkdown remarkPlugins={[remarkGfm]}>
               {course.description}
             </ReactMarkdown>
-            <hr />
-          </div>
-        </li>
+          </Card.Body>
+        </Card>
       )
     }
   })
-  const listCourses = <ul>{renderedCourses}</ul>
 
   const handleEnrol = async (event) => {
     try {
@@ -107,13 +114,17 @@ Enrol
   return (
     <>
       <h3>Courses:</h3>
-      {!loading
-        ? (
-          listCourses
-        )
-        : (
-          <Spinner animation='border' variant='primary' />
-        )}
+      <CardGroup>
+        <Row md={3} className='g-4'>
+          {!loading
+            ? (
+              renderedCourses
+            )
+            : (
+              <Spinner animation='border' variant='primary' />
+            )}
+        </Row>
+      </CardGroup>
     </>
   )
 }

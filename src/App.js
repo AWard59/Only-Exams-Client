@@ -104,6 +104,10 @@ const App = () => {
           <ViewModuleId msgAlert={msgAlert} user={user} userType={userType} />
         }
       />
+      <Route
+        path='/courses/assigned/'
+        element={<ViewCourses user={user} userType={userType} />}
+      />
     </>
   )
 

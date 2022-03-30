@@ -18,7 +18,7 @@ const authorOptions = (
 
 const tutorOptions = (
   <>
-    <NavLink to='/courses/' className='nav-link'>Your Courses</NavLink>
+    <NavLink to='/courses/assigned/' className='nav-link'>Your Courses</NavLink>
     <NavLink to='/change-password/' className='nav-link'>Change Password</NavLink>
     <NavLink to='/profile/' className='nav-link'>Profile</NavLink>
     <NavLink to='/sign-out/' className='nav-link'>Sign Out</NavLink>

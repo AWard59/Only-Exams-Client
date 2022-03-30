@@ -11,6 +11,7 @@ const SignIn = ({ msgAlert, setUser }) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [shouldNavigate, setShouldNavigate] = useState(false)
+  const [shouldNavigateTutor, setShouldNavigateTutor] = useState(false)
 
   const onSignIn = async (event) => {
     event.preventDefault()
@@ -23,7 +24,11 @@ const SignIn = ({ msgAlert, setUser }) => {
         message: signInSuccess,
         variant: 'success'
       })
-      setShouldNavigate(true)
+      if (res.data.user.isTutor) {
+        setShouldNavigateTutor(true)
+      } else {
+        setShouldNavigate(true)
+      }
     } catch (error) {
       setEmail('')
       setPassword('')
@@ -37,6 +42,10 @@ const SignIn = ({ msgAlert, setUser }) => {
 
   if (shouldNavigate) {
     return <Navigate to='/courses/' />
+  }
+
+  if (shouldNavigateTutor) {
+    return <Navigate to='/courses/assigned/' />
   }
 
   return (

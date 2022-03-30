@@ -200,14 +200,12 @@ const Course = ({ msgAlert, user, userType }) => {
           <div className='row'>
             <div className='col-5'>
               <Card border='primary' className='shadow'>
-                <Card.Img variant='top' src={courseImage ? apiUrl + courseImage : null} />
+                <Card.Img variant='top' src={apiUrl + courseImage} />
                 <Card.Body>
                   <Card.Title>{course.name}</Card.Title>
-                  <Card.Text>
-                    <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                      {course.description}
-                    </ReactMarkdown>
-                  </Card.Text>
+                  <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                    {course.description}
+                  </ReactMarkdown>
                   <Button onClick={() => setShowCourseEdit(true)}>Edit</Button>
                   <Button variant='danger' onClick={onDelete}>
                   Delete

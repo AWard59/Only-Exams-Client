@@ -5,10 +5,12 @@ import remarkGfm from 'remark-gfm'
 
 import Button from 'react-bootstrap/Button'
 import Spinner from 'react-bootstrap/Spinner'
+import Card from 'react-bootstrap/Card'
 
 import { getCourseById } from '../../../api/courses'
 import { getModules } from '../../../api/modules'
 import { getEnrolledStudents } from '../../../api/user'
+import apiUrl from '../../../apiConfig'
 
 const Course = ({ msgAlert, user, userType }) => {
   const [course, setCourse] = useState([])
@@ -48,7 +50,7 @@ const Course = ({ msgAlert, user, userType }) => {
   }, [])
 
   if (navigateBack) {
-    return <Navigate to='/courses/' />
+    return <Navigate to='/courses/assigned/' />
   }
 
   const renderedStudents = enrolledStudents.map((stu) => {
@@ -93,22 +95,20 @@ const Course = ({ msgAlert, user, userType }) => {
         <br />
         <div className='container'>
           <div className='row'>
-            <div className='col-3'>
-              <div className='container shadow'>
-                <h2>{course.name}</h2>
-                <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                  {course.description}
-                </ReactMarkdown>
-                <br />
-                <br />
-              </div>
-              <br />
-              <div className='container shadow'>
-                <h5>Enrolled Students:</h5>
-                {listStudents}
-                <br />
-                <br />
-              </div>
+            <div className='col-5'>
+              <Card border='primary' className='shadow'>
+                <Card.Img variant='top' src={apiUrl + course.image} />
+                <Card.Body>
+                  <Card.Title>{course.name}</Card.Title>
+                  <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                    {course.description}
+                  </ReactMarkdown>
+                </Card.Body>
+                <Card.Footer>
+                  <h5>Enrolled Students:</h5>
+                  {listStudents}
+                </Card.Footer>
+              </Card>
             </div>
 
             <div className='col-6 container'>

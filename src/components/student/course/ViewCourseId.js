@@ -5,9 +5,11 @@ import remarkGfm from 'remark-gfm'
 
 import Button from 'react-bootstrap/Button'
 import Spinner from 'react-bootstrap/Spinner'
+import Card from 'react-bootstrap/Card'
 
 import { getCourseByIdStudent } from '../../../api/courses'
 import { getModules, getCompleteModules } from '../../../api/modules'
+import apiUrl from '../../../apiConfig'
 
 const Course = ({ msgAlert, user, userType }) => {
   const [course, setCourse] = useState([])
@@ -81,18 +83,16 @@ const Course = ({ msgAlert, user, userType }) => {
         <br />
         <div className='container'>
           <div className='row'>
-            <div className='col-3'>
-              <div className='container shadow'>
-                <h1>{course.name}</h1>
-                <div className='col-3'>
+            <div className='col-5'>
+              <Card border='primary' className='shadow'>
+                <Card.Img variant='top' src={apiUrl + course.image} />
+                <Card.Body>
+                  <Card.Title>{course.name}</Card.Title>
                   <ReactMarkdown remarkPlugins={[remarkGfm]}>
                     {course.description}
                   </ReactMarkdown>
-                </div>
-                <br />
-                <br />
-              </div>
-              <br />
+                </Card.Body>
+              </Card>
             </div>
 
             <div className='col-6 container'>
