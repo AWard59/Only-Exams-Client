@@ -8,6 +8,7 @@ import Modal from 'react-bootstrap/Modal'
 import Form from 'react-bootstrap/Form'
 import Spinner from 'react-bootstrap/Spinner'
 import FloatingLabel from 'react-bootstrap/FloatingLabel'
+import Card from 'react-bootstrap/Card'
 
 import { getCourseById, editCourse, deleteCourse } from '../../../api/courses'
 import { getModules } from '../../../api/modules'
@@ -198,31 +199,26 @@ const Course = ({ msgAlert, user, userType }) => {
         <div className='container'>
           <div className='row'>
             <div className='col-5'>
-              <div className='container shadow'>
-                <div className='col-5'>
-                  <img src={apiUrl + courseImage} className='col-12'></img>
-                </div>
-                <h2>{course.name}</h2>
-                <div className='col-3'>
-                  <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                    {course.description}
-                  </ReactMarkdown>
-                </div>
-                <Button onClick={() => setShowCourseEdit(true)}>Edit</Button>
-                <Button variant='danger' onClick={onDelete}>
-Delete
-                </Button>
-                <br />
-                <br />
-              </div>
-              <br />
-              <div className='container shadow'>
-                <h5>Tutors:</h5>
-                {listTutors}
-                <Button onClick={handleShowAssignTutors}>Assign Tutors</Button>
-                <br />
-                <br />
-              </div>
+              <Card border='primary' className='shadow'>
+                <Card.Img variant='top' src={courseImage ? apiUrl + courseImage : null} />
+                <Card.Body>
+                  <Card.Title>{course.name}</Card.Title>
+                  <Card.Text>
+                    <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                      {course.description}
+                    </ReactMarkdown>
+                  </Card.Text>
+                  <Button onClick={() => setShowCourseEdit(true)}>Edit</Button>
+                  <Button variant='danger' onClick={onDelete}>
+                  Delete
+                  </Button>
+                </Card.Body>
+                <Card.Footer>
+                  <h5>Tutors:</h5>
+                  {listTutors}
+                  <Button onClick={handleShowAssignTutors}>Assign Tutors</Button>
+                </Card.Footer>
+              </Card>
             </div>
 
             <div className='col-6 container'>
