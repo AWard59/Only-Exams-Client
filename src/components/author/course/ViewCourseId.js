@@ -9,6 +9,7 @@ import Form from 'react-bootstrap/Form'
 import Spinner from 'react-bootstrap/Spinner'
 import FloatingLabel from 'react-bootstrap/FloatingLabel'
 import Card from 'react-bootstrap/Card'
+import ListGroup from 'react-bootstrap/ListGroup'
 
 import { getCourseById, editCourse, deleteCourse } from '../../../api/courses'
 import { getModules } from '../../../api/modules'
@@ -143,10 +144,11 @@ const Course = ({ msgAlert, user, userType }) => {
   const renderedModules = modules.map((m) => {
     return (
       <li key={m.id}>
-        <Link to={`/courses/modules/${m.id}/`} state={{ value: courseId }}>
-          <h3 className='container shadow-lg'>{m.name}</h3>
-        </Link>
-        <hr />
+        <ListGroup.Item>
+          <Link to={`/courses/modules/${m.id}/`} state={{ value: courseId }}>
+            {m.name}
+          </Link>
+        </ListGroup.Item>
       </li>
     )
   })
@@ -155,8 +157,9 @@ const Course = ({ msgAlert, user, userType }) => {
   const renderedTutors = assignedTutors.map((tut) => {
     return (
       <li key={tut.id}>
-        <p>{tut.tutor.email}</p>
-        <hr />
+        <ListGroup.Item>
+          {tut.tutor.email}
+        </ListGroup.Item>
       </li>
     )
   })
@@ -198,38 +201,44 @@ const Course = ({ msgAlert, user, userType }) => {
         <br />
         <div className='container'>
           <div className='row'>
-            <div className='col-5'>
-              <Card border='primary' className='shadow'>
-                <Card.Img variant='top' src={apiUrl + courseImage} />
-                <Card.Body>
-                  <Card.Title>{course.name}</Card.Title>
-                  <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                    {course.description}
-                  </ReactMarkdown>
-                  <Button onClick={() => setShowCourseEdit(true)}>Edit</Button>
-                  <Button variant='danger' onClick={onDelete}>
+            <Card border='primary' className='col-5 shadow'>
+              <Card.Img variant='top' src={apiUrl + courseImage} />
+              <Card.Body>
+                <Card.Title><h3>{course.name}</h3></Card.Title>
+                <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                  {course.description}
+                </ReactMarkdown>
+                <Button onClick={() => setShowCourseEdit(true)}>Edit</Button>
+                <Button variant='danger' onClick={onDelete}>
                   Delete
-                  </Button>
-                </Card.Body>
-                <Card.Footer>
-                  <h5>Tutors:</h5>
+                </Button>
+              </Card.Body>
+              <Card.Footer>
+                <Card.Header><h4>Tutors:</h4></Card.Header>
+                <ListGroup variant='flush'>
                   {listTutors}
-                  <Button onClick={handleShowAssignTutors}>Assign Tutors</Button>
-                </Card.Footer>
-              </Card>
-            </div>
+                  <ListGroup.Item>
+                    <Button onClick={handleShowAssignTutors}>Assign Tutors</Button>
+                  </ListGroup.Item>
+                </ListGroup>
+              </Card.Footer>
+            </Card>
 
-            <div className='col-6 container'>
-              <h3>Modules:</h3>
-              {!loading
-                ? (
-                  listModules
-                )
-                : (
-                  <Spinner animation='border' variant='primary' />
-                )}
-              <Button onClick={handleOnAddModule}>Add Module</Button>
-            </div>
+            <Card border='primary col-6 container shadow'>
+              <Card.Header><h3>Modules:</h3></Card.Header>
+              <ListGroup variant='flush'>
+                {!loading
+                  ? (
+                    listModules
+                  )
+                  : (
+                    <Spinner animation='border' variant='primary' />
+                  )}
+                <ListGroup.Item>
+                  <Button onClick={handleOnAddModule}>Add Module</Button>
+                </ListGroup.Item>
+              </ListGroup>
+            </Card>
           </div>
         </div>
       </div>

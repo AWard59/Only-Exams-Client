@@ -48,7 +48,7 @@ const Courses = ({ msgAlert, user, userType }) => {
             <Card.Img variant='top' src={apiUrl + course.image} />
           </Link>
           <Card.Body>
-            <Card.Title>{course.name}</Card.Title>
+            <Card.Title><h3>{course.name}</h3></Card.Title>
             <ReactMarkdown remarkPlugins={[remarkGfm]}>
               {course.description}
             </ReactMarkdown>

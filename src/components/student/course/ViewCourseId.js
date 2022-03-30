@@ -6,6 +6,7 @@ import remarkGfm from 'remark-gfm'
 import Button from 'react-bootstrap/Button'
 import Spinner from 'react-bootstrap/Spinner'
 import Card from 'react-bootstrap/Card'
+import ListGroup from 'react-bootstrap/ListGroup'
 
 import { getCourseByIdStudent } from '../../../api/courses'
 import { getModules, getCompleteModules } from '../../../api/modules'
@@ -60,10 +61,11 @@ const Course = ({ msgAlert, user, userType }) => {
   const renderedModules = reducedModules.map((m) => {
     return (
       <li key={m.id}>
-        <Link to={`/courses/modules/${m.id}/`} state={{ course: courseId.id, completed: m.completed }}>
-          <h3 className='container shadow-lg'>{m.completed}{m.name}</h3>
-        </Link>
-        <hr />
+        <ListGroup.Item>
+          <Link to={`/courses/modules/${m.id}/`} state={{ course: courseId.id, completed: m.completed }}>
+            {m.completed} {m.name}
+          </Link>
+        </ListGroup.Item>
       </li>
     )
   })
@@ -87,7 +89,7 @@ const Course = ({ msgAlert, user, userType }) => {
               <Card border='primary' className='shadow'>
                 <Card.Img variant='top' src={apiUrl + course.image} />
                 <Card.Body>
-                  <Card.Title>{course.name}</Card.Title>
+                  <Card.Title><h3>{course.name}</h3></Card.Title>
                   <ReactMarkdown remarkPlugins={[remarkGfm]}>
                     {course.description}
                   </ReactMarkdown>
@@ -95,16 +97,18 @@ const Course = ({ msgAlert, user, userType }) => {
               </Card>
             </div>
 
-            <div className='col-6 container'>
-              <h3>Modules:</h3>
-              {!loading
-                ? (
-                  listModules
-                )
-                : (
-                  <Spinner animation='border' variant='primary' />
-                )}
-            </div>
+            <Card border='primary col-6 container shadow'>
+              <Card.Header><h3>Modules:</h3></Card.Header>
+              <ListGroup variant='flush'>
+                {!loading
+                  ? (
+                    listModules
+                  )
+                  : (
+                    <Spinner animation='border' variant='primary' />
+                  )}
+              </ListGroup>
+            </Card>
           </div>
         </div>
       </div>

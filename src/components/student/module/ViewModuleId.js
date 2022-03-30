@@ -4,6 +4,7 @@ import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 
 import Button from 'react-bootstrap/Button'
+import Card from 'react-bootstrap/Card'
 
 import { completeModule, getModuleById } from '../../../api/modules'
 
@@ -46,57 +47,44 @@ const Module = ({ msgAlert, user, userType }) => {
 
   return (
     <>
-      <div>
-        <br />
-        <Button onClick={() => setShouldNavigateBack(true)}>Back</Button>
-        <br />
-        <br />
-        <div className='container'>
-          <div className='row'>
-            <div className='col-12'>
-              <div className='container' style={{ textAlign: 'center' }}>
-                <h1>{module.name}</h1>
-                <hr />
-                <br />
-              </div>
-              <div style={{ textAlign: 'center' }}>
-                <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                  {module.content}
-                </ReactMarkdown>
-              </div>
-              <div>
-                {completed
-                  ? (
-                    <p
-                      style={{
-                        position: 'absolute',
-                        bottom: '5vh',
-                        right: '5vw',
-                        fontWeight: 'bold',
-                        color: 'red'
-                      }}>
+      <br />
+      <Button onClick={() => setShouldNavigateBack(true)}>Back</Button>
+      <br />
+      <br />
+
+      <Card border='primary' className='col-12 shadow container'>
+        <Card.Header><h1>{module.name}</h1></Card.Header>
+        <Card.Body>
+          <ReactMarkdown remarkPlugins={[remarkGfm]}>
+            {module.content}
+          </ReactMarkdown>
+        </Card.Body>
+        <Card.Footer>
+          {completed
+            ? (
+              <p
+                style={{
+                  textAlign: 'end',
+                  fontWeight: 'bold',
+                  color: 'red'
+                }}>
 Already Completed
-                    </p>
-                  )
-                  : (
-                    <a
-                      style={{
-                        position: 'absolute',
-                        bottom: '5vh',
-                        right: '5vw',
-                        textDecoration: 'underline',
-                        color: 'blue',
-                        cursor: 'pointer'
-                      }}
-                      onClick={() => onCompleteModule()}>
+              </p>
+            )
+            : (
+              <p
+                style={{
+                  textAlign: 'end',
+                  textDecoration: 'underline',
+                  color: 'blue',
+                  cursor: 'pointer'
+                }}
+                onClick={() => onCompleteModule()}>
 Mark Completed
-                    </a>
-                  )}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+              </p>
+            )}
+        </Card.Footer>
+      </Card>
     </>
   )
 }

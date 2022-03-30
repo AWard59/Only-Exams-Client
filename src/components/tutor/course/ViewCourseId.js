@@ -6,6 +6,7 @@ import remarkGfm from 'remark-gfm'
 import Button from 'react-bootstrap/Button'
 import Spinner from 'react-bootstrap/Spinner'
 import Card from 'react-bootstrap/Card'
+import ListGroup from 'react-bootstrap/ListGroup'
 
 import { getCourseById } from '../../../api/courses'
 import { getModules } from '../../../api/modules'
@@ -55,13 +56,11 @@ const Course = ({ msgAlert, user, userType }) => {
 
   const renderedStudents = enrolledStudents.map((stu) => {
     return (
-      <li key={stu.student.id}>
-        <p>{stu.student.email}</p>
-        <hr />
-      </li>
+      <ListGroup.Item key={stu.student.id}>
+        {stu.student.email}
+      </ListGroup.Item>
     )
   })
-  const listStudents = <ol className='container'>{renderedStudents}</ol>
 
   const handleOnAddModule = () => setShouldNavigateAddModule(true)
 
@@ -77,10 +76,11 @@ const Course = ({ msgAlert, user, userType }) => {
   const renderedModules = modules.map((m) => {
     return (
       <li key={m.id}>
-        <Link to={`/courses/modules/${m.id}/`} state={{ value: courseId }}>
-          <h3 className='container shadow-lg'>{m.name}</h3>
-        </Link>
-        <hr />
+        <ListGroup.Item>
+          <Link to={`/courses/modules/${m.id}/`} state={{ value: courseId }}>
+            {m.name}
+          </Link>
+        </ListGroup.Item>
       </li>
     )
   })
@@ -99,29 +99,37 @@ const Course = ({ msgAlert, user, userType }) => {
               <Card border='primary' className='shadow'>
                 <Card.Img variant='top' src={apiUrl + course.image} />
                 <Card.Body>
-                  <Card.Title>{course.name}</Card.Title>
+                  <Card.Title><h3>{course.name}</h3></Card.Title>
                   <ReactMarkdown remarkPlugins={[remarkGfm]}>
                     {course.description}
                   </ReactMarkdown>
                 </Card.Body>
                 <Card.Footer>
-                  <h5>Enrolled Students:</h5>
-                  {listStudents}
+                  <Card.Header>
+                    <h4>Enrolled Students:</h4>
+                  </Card.Header>
+                  <ListGroup variant='flush'>
+                    {renderedStudents}
+                  </ListGroup>
                 </Card.Footer>
               </Card>
             </div>
 
-            <div className='col-6 container'>
-              <h3>Modules:</h3>
-              {!loading
-                ? (
-                  listModules
-                )
-                : (
-                  <Spinner animation='border' variant='primary' />
-                )}
-              <Button onClick={handleOnAddModule}>Add Module</Button>
-            </div>
+            <Card border='primary col-6 container shadow'>
+              <Card.Header><h3>Modules:</h3></Card.Header>
+              <ListGroup variant='flush'>
+                {!loading
+                  ? (
+                    listModules
+                  )
+                  : (
+                    <Spinner animation='border' variant='primary' />
+                  )}
+                <ListGroup.Item>
+                  <Button onClick={handleOnAddModule}>Add Module</Button>
+                </ListGroup.Item>
+              </ListGroup>
+            </Card>
           </div>
         </div>
       </div>

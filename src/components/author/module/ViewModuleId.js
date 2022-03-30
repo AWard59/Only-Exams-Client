@@ -7,6 +7,7 @@ import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
 import Form from 'react-bootstrap/Form'
 import FloatingLabel from 'react-bootstrap/FloatingLabel'
+import Card from 'react-bootstrap/Card'
 
 import { getModuleById, editModule, deleteModule } from '../../../api/modules'
 
@@ -87,23 +88,20 @@ const Module = ({ msgAlert, user, userType }) => {
         <br />
         <Button onClick={() => setShouldNavigateBack(true)}>Back</Button>
         <br />
-        <br />
-        <div className='container'>
-          <div className='row'>
-            <div className='col-3'>
-              <div className='container shadow'>
-                <h2>{module.name}</h2>
-                <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                  {module.content}
-                </ReactMarkdown>
-                <Button onClick={() => setShowModuleEdit(true)}>Edit</Button>
-                <Button variant='danger' onClick={onDelete}>
+        <Card border='primary' className='col-5 shadow container'>
+          <Card.Header><h1>{module.name}</h1></Card.Header>
+          <Card.Body>
+            <ReactMarkdown remarkPlugins={[remarkGfm]}>
+              {module.content}
+            </ReactMarkdown>
+          </Card.Body>
+          <Card.Footer>
+            <Button onClick={() => setShowModuleEdit(true)}>Edit</Button>
+            <Button variant='danger' onClick={onDelete}>
 Delete
-                </Button>
-              </div>
-            </div>
-          </div>
-        </div>
+            </Button>
+          </Card.Footer>
+        </Card>
       </div>
 
       <div>
