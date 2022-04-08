@@ -108,6 +108,10 @@ const App = () => {
         path='/courses/assigned/'
         element={<ViewCourses user={user} userType={userType} />}
       />
+      <Route
+        path='/courses/:id/modules/create/'
+        element={<CreateModule msgAlert={msgAlert} user={user} />}
+      />
     </>
   )
 
@@ -187,7 +191,13 @@ const App = () => {
           <Route path='/' element={<Home user={user} userType={userType} />} />
           <Route
             path='/courses/'
-            element={<ViewCourses user={user} userType={userType} />}
+            element={
+              <ViewCourses
+                msgAlert={msgAlert}
+                user={user}
+                userType={userType}
+              />
+            }
           />
           {userType === 'Student'
             ? studentRoutes

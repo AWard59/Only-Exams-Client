@@ -44,7 +44,7 @@ const CreateCourse = ({ msgAlert, user }) => {
     }
   }
 
-  if (!user || shouldNavigate) {
+  if (!user) {
     return <Navigate to='/' />
   }
 

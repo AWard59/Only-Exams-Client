@@ -102,6 +102,8 @@ Enrol
         message: 'You have successfully enrolled in this course!',
         variant: 'success'
       })
+      navAfterEnrol(event.target.value)
+      // return <Navigate to={`/courses/${event.target.value}`} />
     } catch {
       msgAlert({
         heading: 'Error enrolling',
@@ -109,6 +111,10 @@ Enrol
         variant: 'danger'
       })
     }
+  }
+
+  const navAfterEnrol = (courseId) => {
+    return <Navigate to={`/courses/${courseId}`} />
   }
 
   return (
